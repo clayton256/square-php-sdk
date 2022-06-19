@@ -44,6 +44,11 @@ class BatchRetrieveInventoryChangesRequest implements \JsonSerializable
     private $cursor;
 
     /**
+     * @var int|null
+     */
+    private $limit;
+
+    /**
      * Returns Catalog Object Ids.
      * The filter to return results by `CatalogObject` ID.
      * The filter is only applicable when set. The default value is null.
@@ -113,6 +118,7 @@ class BatchRetrieveInventoryChangesRequest implements \JsonSerializable
      * The default value is `[PHYSICAL_COUNT, ADJUSTMENT]`.
      *
      * @maps types
+     * @factory \Square\Models\InventoryChangeType::checkValue
      *
      * @param string[]|null $types
      */
@@ -141,6 +147,7 @@ class BatchRetrieveInventoryChangesRequest implements \JsonSerializable
      * The default value is null.
      *
      * @maps states
+     * @factory \Square\Models\InventoryState::checkValue
      *
      * @param string[]|null $states
      */
@@ -226,6 +233,24 @@ class BatchRetrieveInventoryChangesRequest implements \JsonSerializable
     }
 
     /**
+     * Returns Limit.
+     */
+    public function getLimit(): ?int
+    {
+        return $this->limit;
+    }
+
+    /**
+     * Sets Limit.
+     *
+     * @maps limit
+     */
+    public function setLimit(?int $limit): void
+    {
+        $this->limit = $limit;
+    }
+
+    /**
      * Encode this object to JSON
      *
      * @param bool $asArrayWhenEmpty Whether to serialize this model as an array whenever no fields
@@ -244,10 +269,10 @@ class BatchRetrieveInventoryChangesRequest implements \JsonSerializable
             $json['location_ids']       = $this->locationIds;
         }
         if (isset($this->types)) {
-            $json['types']              = $this->types;
+            $json['types']              = InventoryChangeType::checkValue($this->types);
         }
         if (isset($this->states)) {
-            $json['states']             = $this->states;
+            $json['states']             = InventoryState::checkValue($this->states);
         }
         if (isset($this->updatedAfter)) {
             $json['updated_after']      = $this->updatedAfter;
@@ -257,6 +282,9 @@ class BatchRetrieveInventoryChangesRequest implements \JsonSerializable
         }
         if (isset($this->cursor)) {
             $json['cursor']             = $this->cursor;
+        }
+        if (isset($this->limit)) {
+            $json['limit']              = $this->limit;
         }
         $json = array_filter($json, function ($val) {
             return $val !== null;

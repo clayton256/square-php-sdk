@@ -7,7 +7,7 @@ namespace Square\Models;
 use stdClass;
 
 /**
- * Describes a gift card activity of the ADJUST_INCREMENT type.
+ * Represents details about an `ADJUST_INCREMENT` [gift card activity type]($m/GiftCardActivityType).
  */
 class GiftCardActivityAdjustIncrement implements \JsonSerializable
 {
@@ -66,6 +66,7 @@ class GiftCardActivityAdjustIncrement implements \JsonSerializable
 
     /**
      * Returns Reason.
+     * Indicates the reason for adding money to a [gift card]($m/GiftCard).
      */
     public function getReason(): string
     {
@@ -74,9 +75,11 @@ class GiftCardActivityAdjustIncrement implements \JsonSerializable
 
     /**
      * Sets Reason.
+     * Indicates the reason for adding money to a [gift card]($m/GiftCard).
      *
      * @required
      * @maps reason
+     * @factory \Square\Models\GiftCardActivityAdjustIncrementReason::checkValue
      */
     public function setReason(string $reason): void
     {
@@ -96,7 +99,7 @@ class GiftCardActivityAdjustIncrement implements \JsonSerializable
     {
         $json = [];
         $json['amount_money'] = $this->amountMoney;
-        $json['reason']       = $this->reason;
+        $json['reason']       = GiftCardActivityAdjustIncrementReason::checkValue($this->reason);
         $json = array_filter($json, function ($val) {
             return $val !== null;
         });

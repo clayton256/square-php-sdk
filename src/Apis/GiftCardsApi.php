@@ -25,7 +25,7 @@ class GiftCardsApi extends BaseApi
 
     /**
      * Lists all gift cards. You can specify optional filters to retrieve
-     * a subset of the gift cards.
+     * a subset of the gift cards. Results are sorted by `created_at` in ascending order.
      *
      * @param string|null $type If a [type]($m/GiftCardType) is provided, the endpoint returns gift
      *        cards of the specified type.
@@ -117,11 +117,9 @@ class GiftCardsApi extends BaseApi
     }
 
     /**
-     * Creates a digital gift card or registers a physical (plastic) gift card. You must activate the gift
-     * card before
-     * it can be used for payment. For more information, see
-     * [Selling gift cards](https://developer.squareup.com/docs/gift-cards/using-gift-cards-api#selling-
-     * square-gift-cards).
+     * Creates a digital gift card or registers a physical (plastic) gift card. After the gift card
+     * is created, you must call [CreateGiftCardActivity]($e/GiftCardActivities/CreateGiftCardActivity)
+     * to activate the card with an initial balance before it can be used for payment.
      *
      * @param Models\CreateGiftCardRequest $body An object containing the fields to POST for the
      *        request.
@@ -475,7 +473,7 @@ class GiftCardsApi extends BaseApi
     }
 
     /**
-     * Retrieves a gift card using its ID.
+     * Retrieves a gift card using the gift card ID.
      *
      * @param string $id The ID of the gift card to retrieve.
      *

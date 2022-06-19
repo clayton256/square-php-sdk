@@ -21,7 +21,7 @@ external bank account or to the Square balance.
 | `destination` | [`?Destination`](../../doc/models/destination.md) | Optional | Information about the destination against which the payout was made. | getDestination(): ?Destination | setDestination(?Destination destination): void |
 | `version` | `?int` | Optional | The version number, which is incremented each time an update is made to this payout record.<br>The version number helps developers receive event notifications or feeds out of order. | getVersion(): ?int | setVersion(?int version): void |
 | `type` | [`?string (PayoutType)`](../../doc/models/payout-type.md) | Optional | The type of payout: “BATCH” or “SIMPLE”.<br>BATCH payouts include a list of payout entries that can be considered settled.<br>SIMPLE payouts do not have any payout entries associated with them<br>and will show up as one of the payout entries in a future BATCH payout. | getType(): ?string | setType(?string type): void |
-| `payoutFee` | [`?(PayoutFee[])`](../../doc/models/payout-fee.md) | Optional | A list of processing fees and any taxes on the fees assessed by Square for this payout. | getPayoutFee(): ?array | setPayoutFee(?array payoutFee): void |
+| `payoutFee` | [`?(PayoutFee[])`](../../doc/models/payout-fee.md) | Optional | A list of transfer fees and any taxes on the fees assessed by Square for this payout. | getPayoutFee(): ?array | setPayoutFee(?array payoutFee): void |
 | `arrivalDate` | `?string` | Optional | The calendar date, in ISO 8601 format (YYYY-MM-DD), when the payout is due to arrive in the seller’s banking destination. | getArrivalDate(): ?string | setArrivalDate(?string arrivalDate): void |
 
 ## Example (as JSON)
@@ -29,18 +29,16 @@ external bank account or to the Square balance.
 ```json
 {
   "id": "id0",
-  "status": "PAID",
+  "status": null,
   "location_id": "location_id4",
-  "created_at": "created_at2",
-  "updated_at": "updated_at4",
-  "amount_money": {
-    "amount": 186,
-    "currency": "NGN"
-  },
-  "destination": {
-    "type": "BANK_ACCOUNT",
-    "id": "id4"
-  }
+  "created_at": null,
+  "updated_at": null,
+  "amount_money": null,
+  "destination": null,
+  "version": null,
+  "type": null,
+  "payout_fee": null,
+  "arrival_date": null
 }
 ```
 

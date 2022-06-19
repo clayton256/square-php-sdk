@@ -34,6 +34,11 @@ class BatchRetrieveInventoryCountsRequest implements \JsonSerializable
     private $states;
 
     /**
+     * @var int|null
+     */
+    private $limit;
+
+    /**
      * Returns Catalog Object Ids.
      * The filter to return results by `CatalogObject` ID.
      * The filter is applicable only when set.  The default is null.
@@ -157,12 +162,31 @@ class BatchRetrieveInventoryCountsRequest implements \JsonSerializable
      * The default is null.
      *
      * @maps states
+     * @factory \Square\Models\InventoryState::checkValue
      *
      * @param string[]|null $states
      */
     public function setStates(?array $states): void
     {
         $this->states = $states;
+    }
+
+    /**
+     * Returns Limit.
+     */
+    public function getLimit(): ?int
+    {
+        return $this->limit;
+    }
+
+    /**
+     * Sets Limit.
+     *
+     * @maps limit
+     */
+    public function setLimit(?int $limit): void
+    {
+        $this->limit = $limit;
     }
 
     /**
@@ -190,7 +214,10 @@ class BatchRetrieveInventoryCountsRequest implements \JsonSerializable
             $json['cursor']             = $this->cursor;
         }
         if (isset($this->states)) {
-            $json['states']             = $this->states;
+            $json['states']             = InventoryState::checkValue($this->states);
+        }
+        if (isset($this->limit)) {
+            $json['limit']              = $this->limit;
         }
         $json = array_filter($json, function ($val) {
             return $val !== null;

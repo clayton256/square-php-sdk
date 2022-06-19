@@ -7,7 +7,7 @@ namespace Square\Models;
 use stdClass;
 
 /**
- * Describes a gift card activity of the CLEAR_BALANCE type.
+ * Represents details about a `CLEAR_BALANCE` [gift card activity type]($m/GiftCardActivityType).
  */
 class GiftCardActivityClearBalance implements \JsonSerializable
 {
@@ -26,6 +26,7 @@ class GiftCardActivityClearBalance implements \JsonSerializable
 
     /**
      * Returns Reason.
+     * Indicates the reason for clearing the balance of a [gift card]($m/GiftCard).
      */
     public function getReason(): string
     {
@@ -34,9 +35,11 @@ class GiftCardActivityClearBalance implements \JsonSerializable
 
     /**
      * Sets Reason.
+     * Indicates the reason for clearing the balance of a [gift card]($m/GiftCard).
      *
      * @required
      * @maps reason
+     * @factory \Square\Models\GiftCardActivityClearBalanceReason::checkValue
      */
     public function setReason(string $reason): void
     {
@@ -55,7 +58,7 @@ class GiftCardActivityClearBalance implements \JsonSerializable
     public function jsonSerialize(bool $asArrayWhenEmpty = false)
     {
         $json = [];
-        $json['reason'] = $this->reason;
+        $json['reason'] = GiftCardActivityClearBalanceReason::checkValue($this->reason);
         $json = array_filter($json, function ($val) {
             return $val !== null;
         });

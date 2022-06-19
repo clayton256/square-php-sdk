@@ -1,7 +1,7 @@
 
 # Gift Card Activity Import Reversal
 
-Present only when GiftCardActivityType is IMPORT_REVERSAL and GiftCardGANSource is OTHER
+Represents details about an `IMPORT_REVERSAL` [gift card activity type](../../doc/models/gift-card-activity-type.md).
 
 ## Structure
 
@@ -18,8 +18,8 @@ Present only when GiftCardActivityType is IMPORT_REVERSAL and GiftCardGANSource 
 ```json
 {
   "amount_money": {
-    "amount": 186,
-    "currency": "NGN"
+    "amount": null,
+    "currency": null
   }
 }
 ```
