@@ -14,7 +14,6 @@ use Square\Http\HttpResponse;
 use Square\Http\HttpMethod;
 use Square\Http\HttpContext;
 use Square\Http\HttpCallBack;
-use Unirest\Request;
 
 class V1TransactionsApi extends BaseApi
 {
@@ -40,7 +39,7 @@ class V1TransactionsApi extends BaseApi
      *
      * @throws ApiException Thrown if API call fails
      */
-    public function listOrders(
+    public function v1ListOrders(
         string $locationId,
         ?string $order = null,
         ?int $limit = null,
@@ -83,7 +82,7 @@ class V1TransactionsApi extends BaseApi
 
         // and invoke the API call request to fetch the response
         try {
-            $response = Request::get($_httpRequest->getQueryUrl(), $_httpRequest->getHeaders());
+            $response = self::$request->get($_httpRequest->getQueryUrl(), $_httpRequest->getHeaders());
         } catch (\Unirest\Exception $ex) {
             throw new ApiException($ex->getMessage(), $_httpRequest);
         }
@@ -118,7 +117,7 @@ class V1TransactionsApi extends BaseApi
      *
      * @throws ApiException Thrown if API call fails
      */
-    public function retrieveOrder(string $locationId, string $orderId): ApiResponse
+    public function v1RetrieveOrder(string $locationId, string $orderId): ApiResponse
     {
         trigger_error('Method ' . __METHOD__ . ' is deprecated.', E_USER_DEPRECATED);
 
@@ -151,7 +150,7 @@ class V1TransactionsApi extends BaseApi
 
         // and invoke the API call request to fetch the response
         try {
-            $response = Request::get($_httpRequest->getQueryUrl(), $_httpRequest->getHeaders());
+            $response = self::$request->get($_httpRequest->getQueryUrl(), $_httpRequest->getHeaders());
         } catch (\Unirest\Exception $ex) {
             throw new ApiException($ex->getMessage(), $_httpRequest);
         }
@@ -191,7 +190,7 @@ class V1TransactionsApi extends BaseApi
      *
      * @throws ApiException Thrown if API call fails
      */
-    public function updateOrder(string $locationId, string $orderId, Models\V1UpdateOrderRequest $body): ApiResponse
+    public function v1UpdateOrder(string $locationId, string $orderId, Models\V1UpdateOrderRequest $body): ApiResponse
     {
         trigger_error('Method ' . __METHOD__ . ' is deprecated.', E_USER_DEPRECATED);
 
@@ -228,7 +227,7 @@ class V1TransactionsApi extends BaseApi
 
         // and invoke the API call request to fetch the response
         try {
-            $response = Request::put($_httpRequest->getQueryUrl(), $_httpRequest->getHeaders(), $_bodyJson);
+            $response = self::$request->put($_httpRequest->getQueryUrl(), $_httpRequest->getHeaders(), $_bodyJson);
         } catch (\Unirest\Exception $ex) {
             throw new ApiException($ex->getMessage(), $_httpRequest);
         }
@@ -287,7 +286,7 @@ class V1TransactionsApi extends BaseApi
      *
      * @throws ApiException Thrown if API call fails
      */
-    public function listPayments(
+    public function v1ListPayments(
         string $locationId,
         ?string $order = null,
         ?string $beginTime = null,
@@ -337,7 +336,7 @@ class V1TransactionsApi extends BaseApi
 
         // and invoke the API call request to fetch the response
         try {
-            $response = Request::get($_httpRequest->getQueryUrl(), $_httpRequest->getHeaders());
+            $response = self::$request->get($_httpRequest->getQueryUrl(), $_httpRequest->getHeaders());
         } catch (\Unirest\Exception $ex) {
             throw new ApiException($ex->getMessage(), $_httpRequest);
         }
@@ -373,7 +372,7 @@ class V1TransactionsApi extends BaseApi
      *
      * @throws ApiException Thrown if API call fails
      */
-    public function retrievePayment(string $locationId, string $paymentId): ApiResponse
+    public function v1RetrievePayment(string $locationId, string $paymentId): ApiResponse
     {
         trigger_error('Method ' . __METHOD__ . ' is deprecated.', E_USER_DEPRECATED);
 
@@ -406,7 +405,7 @@ class V1TransactionsApi extends BaseApi
 
         // and invoke the API call request to fetch the response
         try {
-            $response = Request::get($_httpRequest->getQueryUrl(), $_httpRequest->getHeaders());
+            $response = self::$request->get($_httpRequest->getQueryUrl(), $_httpRequest->getHeaders());
         } catch (\Unirest\Exception $ex) {
             throw new ApiException($ex->getMessage(), $_httpRequest);
         }
@@ -454,7 +453,7 @@ class V1TransactionsApi extends BaseApi
      *
      * @throws ApiException Thrown if API call fails
      */
-    public function listRefunds(
+    public function v1ListRefunds(
         string $locationId,
         ?string $order = null,
         ?string $beginTime = null,
@@ -501,7 +500,7 @@ class V1TransactionsApi extends BaseApi
 
         // and invoke the API call request to fetch the response
         try {
-            $response = Request::get($_httpRequest->getQueryUrl(), $_httpRequest->getHeaders());
+            $response = self::$request->get($_httpRequest->getQueryUrl(), $_httpRequest->getHeaders());
         } catch (\Unirest\Exception $ex) {
             throw new ApiException($ex->getMessage(), $_httpRequest);
         }
@@ -549,7 +548,7 @@ class V1TransactionsApi extends BaseApi
      *
      * @throws ApiException Thrown if API call fails
      */
-    public function createRefund(string $locationId, Models\V1CreateRefundRequest $body): ApiResponse
+    public function v1CreateRefund(string $locationId, Models\V1CreateRefundRequest $body): ApiResponse
     {
         trigger_error('Method ' . __METHOD__ . ' is deprecated.', E_USER_DEPRECATED);
 
@@ -585,7 +584,7 @@ class V1TransactionsApi extends BaseApi
 
         // and invoke the API call request to fetch the response
         try {
-            $response = Request::post($_httpRequest->getQueryUrl(), $_httpRequest->getHeaders(), $_bodyJson);
+            $response = self::$request->post($_httpRequest->getQueryUrl(), $_httpRequest->getHeaders(), $_bodyJson);
         } catch (\Unirest\Exception $ex) {
             throw new ApiException($ex->getMessage(), $_httpRequest);
         }
@@ -638,7 +637,7 @@ class V1TransactionsApi extends BaseApi
      *
      * @throws ApiException Thrown if API call fails
      */
-    public function listSettlements(
+    public function v1ListSettlements(
         string $locationId,
         ?string $order = null,
         ?string $beginTime = null,
@@ -687,7 +686,7 @@ class V1TransactionsApi extends BaseApi
 
         // and invoke the API call request to fetch the response
         try {
-            $response = Request::get($_httpRequest->getQueryUrl(), $_httpRequest->getHeaders());
+            $response = self::$request->get($_httpRequest->getQueryUrl(), $_httpRequest->getHeaders());
         } catch (\Unirest\Exception $ex) {
             throw new ApiException($ex->getMessage(), $_httpRequest);
         }
@@ -738,7 +737,7 @@ class V1TransactionsApi extends BaseApi
      *
      * @throws ApiException Thrown if API call fails
      */
-    public function retrieveSettlement(string $locationId, string $settlementId): ApiResponse
+    public function v1RetrieveSettlement(string $locationId, string $settlementId): ApiResponse
     {
         trigger_error('Method ' . __METHOD__ . ' is deprecated.', E_USER_DEPRECATED);
 
@@ -771,7 +770,7 @@ class V1TransactionsApi extends BaseApi
 
         // and invoke the API call request to fetch the response
         try {
-            $response = Request::get($_httpRequest->getQueryUrl(), $_httpRequest->getHeaders());
+            $response = self::$request->get($_httpRequest->getQueryUrl(), $_httpRequest->getHeaders());
         } catch (\Unirest\Exception $ex) {
             throw new ApiException($ex->getMessage(), $_httpRequest);
         }

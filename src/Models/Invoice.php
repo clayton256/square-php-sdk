@@ -8,8 +8,8 @@ use stdClass;
 
 /**
  * Stores information about an invoice. You use the Invoices API to create and manage
- * invoices. For more information, see [Manage Invoices Using the Invoices API](https://developer.
- * squareup.com/docs/invoices-api/overview).
+ * invoices. For more information, see [Invoices API Overview](https://developer.squareup.
+ * com/docs/invoices-api/overview).
  */
 class Invoice implements \JsonSerializable
 {
@@ -122,6 +122,11 @@ class Invoice implements \JsonSerializable
      * @var string|null
      */
     private $paymentConditions;
+
+    /**
+     * @var bool|null
+     */
+    private $storePaymentMethodEnabled;
 
     /**
      * Returns Id.
@@ -267,7 +272,8 @@ class Invoice implements \JsonSerializable
      *
      * This field is required when creating an invoice. It must contain at least one payment request.
      * All payment requests for the invoice must equal the total order amount. For more information, see
-     * [Payment requests](https://developer.squareup.com/docs/invoices-api/overview#payment-requests).
+     * [Configuring payment requests](https://developer.squareup.com/docs/invoices-api/create-publish-
+     * invoices#payment-requests).
      *
      * Adding `INSTALLMENT` payment requests to an invoice requires an
      * [Invoices Plus subscription](https://developer.squareup.com/docs/invoices-api/overview#invoices-plus-
@@ -292,7 +298,8 @@ class Invoice implements \JsonSerializable
      *
      * This field is required when creating an invoice. It must contain at least one payment request.
      * All payment requests for the invoice must equal the total order amount. For more information, see
-     * [Payment requests](https://developer.squareup.com/docs/invoices-api/overview#payment-requests).
+     * [Configuring payment requests](https://developer.squareup.com/docs/invoices-api/create-publish-
+     * invoices#payment-requests).
      *
      * Adding `INSTALLMENT` payment requests to an invoice requires an
      * [Invoices Plus subscription](https://developer.squareup.com/docs/invoices-api/overview#invoices-plus-
@@ -710,6 +717,36 @@ class Invoice implements \JsonSerializable
     }
 
     /**
+     * Returns Store Payment Method Enabled.
+     * Indicates whether to allow a customer to save a credit or debit card as a card on file or a bank
+     * transfer as a
+     * bank account on file. If `true`, Square displays a __Save my card on file__ or __Save my bank on
+     * file__ checkbox on the
+     * invoice payment page. Stored payment information can be used for future automatic payments. The
+     * default value is `false`.
+     */
+    public function getStorePaymentMethodEnabled(): ?bool
+    {
+        return $this->storePaymentMethodEnabled;
+    }
+
+    /**
+     * Sets Store Payment Method Enabled.
+     * Indicates whether to allow a customer to save a credit or debit card as a card on file or a bank
+     * transfer as a
+     * bank account on file. If `true`, Square displays a __Save my card on file__ or __Save my bank on
+     * file__ checkbox on the
+     * invoice payment page. Stored payment information can be used for future automatic payments. The
+     * default value is `false`.
+     *
+     * @maps store_payment_method_enabled
+     */
+    public function setStorePaymentMethodEnabled(?bool $storePaymentMethodEnabled): void
+    {
+        $this->storePaymentMethodEnabled = $storePaymentMethodEnabled;
+    }
+
+    /**
      * Encode this object to JSON
      *
      * @param bool $asArrayWhenEmpty Whether to serialize this model as an array whenever no fields
@@ -722,70 +759,73 @@ class Invoice implements \JsonSerializable
     {
         $json = [];
         if (isset($this->id)) {
-            $json['id']                        = $this->id;
+            $json['id']                           = $this->id;
         }
         if (isset($this->version)) {
-            $json['version']                   = $this->version;
+            $json['version']                      = $this->version;
         }
         if (isset($this->locationId)) {
-            $json['location_id']               = $this->locationId;
+            $json['location_id']                  = $this->locationId;
         }
         if (isset($this->orderId)) {
-            $json['order_id']                  = $this->orderId;
+            $json['order_id']                     = $this->orderId;
         }
         if (isset($this->primaryRecipient)) {
-            $json['primary_recipient']         = $this->primaryRecipient;
+            $json['primary_recipient']            = $this->primaryRecipient;
         }
         if (isset($this->paymentRequests)) {
-            $json['payment_requests']          = $this->paymentRequests;
+            $json['payment_requests']             = $this->paymentRequests;
         }
         if (isset($this->deliveryMethod)) {
-            $json['delivery_method']           = $this->deliveryMethod;
+            $json['delivery_method']              = $this->deliveryMethod;
         }
         if (isset($this->invoiceNumber)) {
-            $json['invoice_number']            = $this->invoiceNumber;
+            $json['invoice_number']               = $this->invoiceNumber;
         }
         if (isset($this->title)) {
-            $json['title']                     = $this->title;
+            $json['title']                        = $this->title;
         }
         if (isset($this->description)) {
-            $json['description']               = $this->description;
+            $json['description']                  = $this->description;
         }
         if (isset($this->scheduledAt)) {
-            $json['scheduled_at']              = $this->scheduledAt;
+            $json['scheduled_at']                 = $this->scheduledAt;
         }
         if (isset($this->publicUrl)) {
-            $json['public_url']                = $this->publicUrl;
+            $json['public_url']                   = $this->publicUrl;
         }
         if (isset($this->nextPaymentAmountMoney)) {
-            $json['next_payment_amount_money'] = $this->nextPaymentAmountMoney;
+            $json['next_payment_amount_money']    = $this->nextPaymentAmountMoney;
         }
         if (isset($this->status)) {
-            $json['status']                    = $this->status;
+            $json['status']                       = $this->status;
         }
         if (isset($this->timezone)) {
-            $json['timezone']                  = $this->timezone;
+            $json['timezone']                     = $this->timezone;
         }
         if (isset($this->createdAt)) {
-            $json['created_at']                = $this->createdAt;
+            $json['created_at']                   = $this->createdAt;
         }
         if (isset($this->updatedAt)) {
-            $json['updated_at']                = $this->updatedAt;
+            $json['updated_at']                   = $this->updatedAt;
         }
         if (isset($this->acceptedPaymentMethods)) {
-            $json['accepted_payment_methods']  = $this->acceptedPaymentMethods;
+            $json['accepted_payment_methods']     = $this->acceptedPaymentMethods;
         }
         if (isset($this->customFields)) {
-            $json['custom_fields']             = $this->customFields;
+            $json['custom_fields']                = $this->customFields;
         }
         if (isset($this->subscriptionId)) {
-            $json['subscription_id']           = $this->subscriptionId;
+            $json['subscription_id']              = $this->subscriptionId;
         }
         if (isset($this->saleOrServiceDate)) {
-            $json['sale_or_service_date']      = $this->saleOrServiceDate;
+            $json['sale_or_service_date']         = $this->saleOrServiceDate;
         }
         if (isset($this->paymentConditions)) {
-            $json['payment_conditions']        = $this->paymentConditions;
+            $json['payment_conditions']           = $this->paymentConditions;
+        }
+        if (isset($this->storePaymentMethodEnabled)) {
+            $json['store_payment_method_enabled'] = $this->storePaymentMethodEnabled;
         }
         $json = array_filter($json, function ($val) {
             return $val !== null;

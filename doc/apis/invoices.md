@@ -130,6 +130,7 @@ $body_invoice_customFields[1]->setPlacement(Models\InvoiceCustomFieldPlacement::
 $body_invoice->setCustomFields($body_invoice_customFields);
 
 $body_invoice->setSaleOrServiceDate('2030-01-24');
+$body_invoice->setStorePaymentMethodEnabled(false);
 $body = new Models\CreateInvoiceRequest(
     $body_invoice
 );
@@ -308,6 +309,7 @@ function updateInvoice(string $invoiceId, UpdateInvoiceRequest $body): ApiRespon
 ```php
 $invoiceId = 'invoice_id0';
 $body_invoice = new Models\Invoice;
+$body_invoice->setVersion(1);
 $body_invoice_paymentRequests = [];
 
 $body_invoice_paymentRequests[0] = new Models\InvoicePaymentRequest;

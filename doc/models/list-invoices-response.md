@@ -20,6 +20,7 @@ Describes a `ListInvoice` response.
 ```json
 {
   "cursor": "ChoIDhIWVm54ZVRhLXhySFBOejBBM2xJb2daUQoFCI4IGAE",
+  "errors": [],
   "invoices": [
     {
       "accepted_payment_methods": {
@@ -81,6 +82,7 @@ Describes a `ListInvoice` response.
       "sale_or_service_date": "2030-01-24",
       "scheduled_at": "2030-01-13T10:00:00Z",
       "status": "DRAFT",
+      "store_payment_method_enabled": false,
       "timezone": "America/Los_Angeles",
       "title": "Event Planning Services",
       "updated_at": "2020-06-18T17:45:13Z",
@@ -93,6 +95,7 @@ Describes a `ListInvoice` response.
         "square_gift_card": true
       },
       "created_at": "2021-01-23T15:29:12Z",
+      "custom_fields": [],
       "delivery_method": "EMAIL",
       "id": "inv:0-ChC366qAfskpGrBI_1bozs9mEA3",
       "invoice_number": "inv-455",
@@ -112,6 +115,7 @@ Describes a `ListInvoice` response.
           },
           "due_date": "2021-01-23",
           "percentage_requested": "25",
+          "reminders": [],
           "request_type": "DEPOSIT",
           "tipping_enabled": false,
           "total_completed_amount_money": {
@@ -147,6 +151,7 @@ Describes a `ListInvoice` response.
       "public_url": "https://squareup.com/pay-invoice/h9sfsfTGTSnYEhISUDBhEQ",
       "sale_or_service_date": "2030-01-24",
       "status": "PARTIALLY_PAID",
+      "store_payment_method_enabled": false,
       "timezone": "America/Los_Angeles",
       "updated_at": "2021-01-23T15:29:56Z",
       "version": 3
