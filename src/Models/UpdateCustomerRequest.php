@@ -13,29 +13,29 @@ use stdClass;
 class UpdateCustomerRequest implements \JsonSerializable
 {
     /**
-     * @var string|null
+     * @var array
      */
-    private $givenName;
+    private $givenName = [];
 
     /**
-     * @var string|null
+     * @var array
      */
-    private $familyName;
+    private $familyName = [];
 
     /**
-     * @var string|null
+     * @var array
      */
-    private $companyName;
+    private $companyName = [];
 
     /**
-     * @var string|null
+     * @var array
      */
-    private $nickname;
+    private $nickname = [];
 
     /**
-     * @var string|null
+     * @var array
      */
-    private $emailAddress;
+    private $emailAddress = [];
 
     /**
      * @var Address|null
@@ -43,24 +43,24 @@ class UpdateCustomerRequest implements \JsonSerializable
     private $address;
 
     /**
-     * @var string|null
+     * @var array
      */
-    private $phoneNumber;
+    private $phoneNumber = [];
 
     /**
-     * @var string|null
+     * @var array
      */
-    private $referenceId;
+    private $referenceId = [];
 
     /**
-     * @var string|null
+     * @var array
      */
-    private $note;
+    private $note = [];
 
     /**
-     * @var string|null
+     * @var array
      */
-    private $birthday;
+    private $birthday = [];
 
     /**
      * @var int|null
@@ -75,101 +75,191 @@ class UpdateCustomerRequest implements \JsonSerializable
     /**
      * Returns Given Name.
      * The given name (that is, the first name) associated with the customer profile.
+     *
+     * The maximum length for this value is 300 characters.
      */
     public function getGivenName(): ?string
     {
-        return $this->givenName;
+        if (count($this->givenName) == 0) {
+            return null;
+        }
+        return $this->givenName['value'];
     }
 
     /**
      * Sets Given Name.
      * The given name (that is, the first name) associated with the customer profile.
      *
+     * The maximum length for this value is 300 characters.
+     *
      * @maps given_name
      */
     public function setGivenName(?string $givenName): void
     {
-        $this->givenName = $givenName;
+        $this->givenName['value'] = $givenName;
+    }
+
+    /**
+     * Unsets Given Name.
+     * The given name (that is, the first name) associated with the customer profile.
+     *
+     * The maximum length for this value is 300 characters.
+     */
+    public function unsetGivenName(): void
+    {
+        $this->givenName = [];
     }
 
     /**
      * Returns Family Name.
      * The family name (that is, the last name) associated with the customer profile.
+     *
+     * The maximum length for this value is 300 characters.
      */
     public function getFamilyName(): ?string
     {
-        return $this->familyName;
+        if (count($this->familyName) == 0) {
+            return null;
+        }
+        return $this->familyName['value'];
     }
 
     /**
      * Sets Family Name.
      * The family name (that is, the last name) associated with the customer profile.
      *
+     * The maximum length for this value is 300 characters.
+     *
      * @maps family_name
      */
     public function setFamilyName(?string $familyName): void
     {
-        $this->familyName = $familyName;
+        $this->familyName['value'] = $familyName;
+    }
+
+    /**
+     * Unsets Family Name.
+     * The family name (that is, the last name) associated with the customer profile.
+     *
+     * The maximum length for this value is 300 characters.
+     */
+    public function unsetFamilyName(): void
+    {
+        $this->familyName = [];
     }
 
     /**
      * Returns Company Name.
      * A business name associated with the customer profile.
+     *
+     * The maximum length for this value is 500 characters.
      */
     public function getCompanyName(): ?string
     {
-        return $this->companyName;
+        if (count($this->companyName) == 0) {
+            return null;
+        }
+        return $this->companyName['value'];
     }
 
     /**
      * Sets Company Name.
      * A business name associated with the customer profile.
      *
+     * The maximum length for this value is 500 characters.
+     *
      * @maps company_name
      */
     public function setCompanyName(?string $companyName): void
     {
-        $this->companyName = $companyName;
+        $this->companyName['value'] = $companyName;
+    }
+
+    /**
+     * Unsets Company Name.
+     * A business name associated with the customer profile.
+     *
+     * The maximum length for this value is 500 characters.
+     */
+    public function unsetCompanyName(): void
+    {
+        $this->companyName = [];
     }
 
     /**
      * Returns Nickname.
      * A nickname for the customer profile.
+     *
+     * The maximum length for this value is 100 characters.
      */
     public function getNickname(): ?string
     {
-        return $this->nickname;
+        if (count($this->nickname) == 0) {
+            return null;
+        }
+        return $this->nickname['value'];
     }
 
     /**
      * Sets Nickname.
      * A nickname for the customer profile.
      *
+     * The maximum length for this value is 100 characters.
+     *
      * @maps nickname
      */
     public function setNickname(?string $nickname): void
     {
-        $this->nickname = $nickname;
+        $this->nickname['value'] = $nickname;
+    }
+
+    /**
+     * Unsets Nickname.
+     * A nickname for the customer profile.
+     *
+     * The maximum length for this value is 100 characters.
+     */
+    public function unsetNickname(): void
+    {
+        $this->nickname = [];
     }
 
     /**
      * Returns Email Address.
      * The email address associated with the customer profile.
+     *
+     * The maximum length for this value is 254 characters.
      */
     public function getEmailAddress(): ?string
     {
-        return $this->emailAddress;
+        if (count($this->emailAddress) == 0) {
+            return null;
+        }
+        return $this->emailAddress['value'];
     }
 
     /**
      * Sets Email Address.
      * The email address associated with the customer profile.
      *
+     * The maximum length for this value is 254 characters.
+     *
      * @maps email_address
      */
     public function setEmailAddress(?string $emailAddress): void
     {
-        $this->emailAddress = $emailAddress;
+        $this->emailAddress['value'] = $emailAddress;
+    }
+
+    /**
+     * Unsets Email Address.
+     * The email address associated with the customer profile.
+     *
+     * The maximum length for this value is 254 characters.
+     */
+    public function unsetEmailAddress(): void
+    {
+        $this->emailAddress = [];
     }
 
     /**
@@ -198,34 +288,61 @@ class UpdateCustomerRequest implements \JsonSerializable
 
     /**
      * Returns Phone Number.
-     * The phone number associated with the customer profile. A phone number can contain 9–16 digits, with
-     * an optional `+` prefix.
+     * The phone number associated with the customer profile. The phone number must be valid and can
+     * contain
+     * 9–16 digits, with an optional `+` prefix and country code. For more information, see
+     * [Customer phone numbers](https://developer.squareup.com/docs/customers-api/use-the-api/keep-
+     * records#phone-number).
      */
     public function getPhoneNumber(): ?string
     {
-        return $this->phoneNumber;
+        if (count($this->phoneNumber) == 0) {
+            return null;
+        }
+        return $this->phoneNumber['value'];
     }
 
     /**
      * Sets Phone Number.
-     * The phone number associated with the customer profile. A phone number can contain 9–16 digits, with
-     * an optional `+` prefix.
+     * The phone number associated with the customer profile. The phone number must be valid and can
+     * contain
+     * 9–16 digits, with an optional `+` prefix and country code. For more information, see
+     * [Customer phone numbers](https://developer.squareup.com/docs/customers-api/use-the-api/keep-
+     * records#phone-number).
      *
      * @maps phone_number
      */
     public function setPhoneNumber(?string $phoneNumber): void
     {
-        $this->phoneNumber = $phoneNumber;
+        $this->phoneNumber['value'] = $phoneNumber;
+    }
+
+    /**
+     * Unsets Phone Number.
+     * The phone number associated with the customer profile. The phone number must be valid and can
+     * contain
+     * 9–16 digits, with an optional `+` prefix and country code. For more information, see
+     * [Customer phone numbers](https://developer.squareup.com/docs/customers-api/use-the-api/keep-
+     * records#phone-number).
+     */
+    public function unsetPhoneNumber(): void
+    {
+        $this->phoneNumber = [];
     }
 
     /**
      * Returns Reference Id.
      * An optional second ID used to associate the customer profile with an
      * entity in another system.
+     *
+     * The maximum length for this value is 100 characters.
      */
     public function getReferenceId(): ?string
     {
-        return $this->referenceId;
+        if (count($this->referenceId) == 0) {
+            return null;
+        }
+        return $this->referenceId['value'];
     }
 
     /**
@@ -233,11 +350,25 @@ class UpdateCustomerRequest implements \JsonSerializable
      * An optional second ID used to associate the customer profile with an
      * entity in another system.
      *
+     * The maximum length for this value is 100 characters.
+     *
      * @maps reference_id
      */
     public function setReferenceId(?string $referenceId): void
     {
-        $this->referenceId = $referenceId;
+        $this->referenceId['value'] = $referenceId;
+    }
+
+    /**
+     * Unsets Reference Id.
+     * An optional second ID used to associate the customer profile with an
+     * entity in another system.
+     *
+     * The maximum length for this value is 100 characters.
+     */
+    public function unsetReferenceId(): void
+    {
+        $this->referenceId = [];
     }
 
     /**
@@ -246,7 +377,10 @@ class UpdateCustomerRequest implements \JsonSerializable
      */
     public function getNote(): ?string
     {
-        return $this->note;
+        if (count($this->note) == 0) {
+            return null;
+        }
+        return $this->note['value'];
     }
 
     /**
@@ -257,35 +391,57 @@ class UpdateCustomerRequest implements \JsonSerializable
      */
     public function setNote(?string $note): void
     {
-        $this->note = $note;
+        $this->note['value'] = $note;
+    }
+
+    /**
+     * Unsets Note.
+     * A custom note associated with the customer profile.
+     */
+    public function unsetNote(): void
+    {
+        $this->note = [];
     }
 
     /**
      * Returns Birthday.
-     * The birthday associated with the customer profile, in RFC 3339 format. The year is optional. The
-     * timezone and time are not allowed.
-     * For example, `0000-09-21T00:00:00-00:00` represents a birthday on September 21 and `1998-09-21T00:00:
-     * 00-00:00` represents a birthday on September 21, 1998.
-     * You can also specify this value in `YYYY-MM-DD` format.
+     * The birthday associated with the customer profile, in `YYYY-MM-DD` or `MM-DD` format. For example,
+     * specify `1998-09-21` for September 21, 1998, or `09-21` for September 21. Birthdays are returned in
+     * `YYYY-MM-DD`
+     * format, where `YYYY` is the specified birth year or `0000` if a birth year is not specified.
      */
     public function getBirthday(): ?string
     {
-        return $this->birthday;
+        if (count($this->birthday) == 0) {
+            return null;
+        }
+        return $this->birthday['value'];
     }
 
     /**
      * Sets Birthday.
-     * The birthday associated with the customer profile, in RFC 3339 format. The year is optional. The
-     * timezone and time are not allowed.
-     * For example, `0000-09-21T00:00:00-00:00` represents a birthday on September 21 and `1998-09-21T00:00:
-     * 00-00:00` represents a birthday on September 21, 1998.
-     * You can also specify this value in `YYYY-MM-DD` format.
+     * The birthday associated with the customer profile, in `YYYY-MM-DD` or `MM-DD` format. For example,
+     * specify `1998-09-21` for September 21, 1998, or `09-21` for September 21. Birthdays are returned in
+     * `YYYY-MM-DD`
+     * format, where `YYYY` is the specified birth year or `0000` if a birth year is not specified.
      *
      * @maps birthday
      */
     public function setBirthday(?string $birthday): void
     {
-        $this->birthday = $birthday;
+        $this->birthday['value'] = $birthday;
+    }
+
+    /**
+     * Unsets Birthday.
+     * The birthday associated with the customer profile, in `YYYY-MM-DD` or `MM-DD` format. For example,
+     * specify `1998-09-21` for September 21, 1998, or `09-21` for September 21. Birthdays are returned in
+     * `YYYY-MM-DD`
+     * format, where `YYYY` is the specified birth year or `0000` if a birth year is not specified.
+     */
+    public function unsetBirthday(): void
+    {
+        $this->birthday = [];
     }
 
     /**
@@ -356,35 +512,35 @@ class UpdateCustomerRequest implements \JsonSerializable
     public function jsonSerialize(bool $asArrayWhenEmpty = false)
     {
         $json = [];
-        if (isset($this->givenName)) {
-            $json['given_name']    = $this->givenName;
+        if (!empty($this->givenName)) {
+            $json['given_name']    = $this->givenName['value'];
         }
-        if (isset($this->familyName)) {
-            $json['family_name']   = $this->familyName;
+        if (!empty($this->familyName)) {
+            $json['family_name']   = $this->familyName['value'];
         }
-        if (isset($this->companyName)) {
-            $json['company_name']  = $this->companyName;
+        if (!empty($this->companyName)) {
+            $json['company_name']  = $this->companyName['value'];
         }
-        if (isset($this->nickname)) {
-            $json['nickname']      = $this->nickname;
+        if (!empty($this->nickname)) {
+            $json['nickname']      = $this->nickname['value'];
         }
-        if (isset($this->emailAddress)) {
-            $json['email_address'] = $this->emailAddress;
+        if (!empty($this->emailAddress)) {
+            $json['email_address'] = $this->emailAddress['value'];
         }
         if (isset($this->address)) {
             $json['address']       = $this->address;
         }
-        if (isset($this->phoneNumber)) {
-            $json['phone_number']  = $this->phoneNumber;
+        if (!empty($this->phoneNumber)) {
+            $json['phone_number']  = $this->phoneNumber['value'];
         }
-        if (isset($this->referenceId)) {
-            $json['reference_id']  = $this->referenceId;
+        if (!empty($this->referenceId)) {
+            $json['reference_id']  = $this->referenceId['value'];
         }
-        if (isset($this->note)) {
-            $json['note']          = $this->note;
+        if (!empty($this->note)) {
+            $json['note']          = $this->note['value'];
         }
-        if (isset($this->birthday)) {
-            $json['birthday']      = $this->birthday;
+        if (!empty($this->birthday)) {
+            $json['birthday']      = $this->birthday['value'];
         }
         if (isset($this->version)) {
             $json['version']       = $this->version;

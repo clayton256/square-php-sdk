@@ -312,6 +312,16 @@ class ErrorCode
     public const INVALID_DATE = 'INVALID_DATE';
 
     /**
+     * The API request references an unsupported country.
+     */
+    public const UNSUPPORTED_COUNTRY = 'UNSUPPORTED_COUNTRY';
+
+    /**
+     * The API request references an unsupported currency.
+     */
+    public const UNSUPPORTED_CURRENCY = 'UNSUPPORTED_CURRENCY';
+
+    /**
      * The card issuer declined the request because the card is expired.
      */
     public const CARD_EXPIRED = 'CARD_EXPIRED';
@@ -423,7 +433,8 @@ class ErrorCode
 
     /**
      * The card issuer declined the request because the issuer requires voice authorization from the
-     * cardholder.
+     * cardholder. The seller should ask the customer to contact the card issuing bank to authorize the
+     * payment.
      */
     public const VOICE_FAILURE = 'VOICE_FAILURE';
 
@@ -541,7 +552,7 @@ class ErrorCode
     public const AMOUNT_TOO_HIGH = 'AMOUNT_TOO_HIGH';
 
     /**
-     * The API request references an unsupported instrument type/
+     * The API request references an unsupported instrument type.
      */
     public const UNSUPPORTED_INSTRUMENT_TYPE = 'UNSUPPORTED_INSTRUMENT_TYPE';
 
@@ -566,6 +577,11 @@ class ErrorCode
      * Request failed - The card issuer declined the refund.
      */
     public const REFUND_DECLINED = 'REFUND_DECLINED';
+
+    /**
+     * The Square account does not have the permissions to process this refund.
+     */
+    public const INSUFFICIENT_PERMISSIONS_FOR_REFUND = 'INSUFFICIENT_PERMISSIONS_FOR_REFUND';
 
     /**
      * Generic error - the provided card data is invalid.
@@ -640,6 +656,21 @@ class ErrorCode
     public const API_VERSION_INCOMPATIBLE = 'API_VERSION_INCOMPATIBLE';
 
     /**
+     * The transaction requires that a card be present.
+     */
+    public const CARD_PRESENCE_REQUIRED = 'CARD_PRESENCE_REQUIRED';
+
+    /**
+     * The API request references an unsupported source type.
+     */
+    public const UNSUPPORTED_SOURCE_TYPE = 'UNSUPPORTED_SOURCE_TYPE';
+
+    /**
+     * The provided card does not match what is expected.
+     */
+    public const CARD_MISMATCH = 'CARD_MISMATCH';
+
+    /**
      * The card was declined.
      */
     public const CARD_DECLINED = 'CARD_DECLINED';
@@ -703,7 +734,7 @@ class ErrorCode
     /**
      * Square could not find the associated Apple Pay certificate.
      */
-    public const APPLE_PAYMENT_PROCESSING_CERTIFICATE_HASH_NOT_FOUND     =
+    public const APPLE_PAYMENT_PROCESSING_CERTIFICATE_HASH_NOT_FOUND =
         'APPLE_PAYMENT_PROCESSING_CERTIFICATE_HASH_NOT_FOUND';
 
     /**

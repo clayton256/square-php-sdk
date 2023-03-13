@@ -72,9 +72,9 @@ class Payment implements \JsonSerializable
     private $delayDuration;
 
     /**
-     * @var string|null
+     * @var array
      */
-    private $delayAction;
+    private $delayAction = [];
 
     /**
      * @var string|null
@@ -207,9 +207,9 @@ class Payment implements \JsonSerializable
     private $applicationDetails;
 
     /**
-     * @var string|null
+     * @var array
      */
-    private $versionToken;
+    private $versionToken = [];
 
     /**
      * Returns Id.
@@ -561,7 +561,10 @@ class Payment implements \JsonSerializable
      */
     public function getDelayAction(): ?string
     {
-        return $this->delayAction;
+        if (count($this->delayAction) == 0) {
+            return null;
+        }
+        return $this->delayAction['value'];
     }
 
     /**
@@ -574,7 +577,18 @@ class Payment implements \JsonSerializable
      */
     public function setDelayAction(?string $delayAction): void
     {
-        $this->delayAction = $delayAction;
+        $this->delayAction['value'] = $delayAction;
+    }
+
+    /**
+     * Unsets Delay Action.
+     * The action to be applied to the payment when the `delay_duration` has elapsed.
+     *
+     * Current values include `CANCEL` and `COMPLETE`.
+     */
+    public function unsetDelayAction(): void
+    {
+        $this->delayAction = [];
     }
 
     /**
@@ -611,8 +625,8 @@ class Payment implements \JsonSerializable
      * Returns Source Type.
      * The source type for this payment.
      *
-     * Current values include `CARD`, `BANK_ACCOUNT`, `WALLET`, `BUY_NOW_PAY_LATER`, `CASH`, or
-     * `EXTERNAL`. For information about these payment source types,
+     * Current values include `CARD`, `BANK_ACCOUNT`, `WALLET`, `BUY_NOW_PAY_LATER`, `CASH`
+     * and `EXTERNAL`. For information about these payment source types,
      * see [Take Payments](https://developer.squareup.com/docs/payments-api/take-payments).
      */
     public function getSourceType(): ?string
@@ -624,8 +638,8 @@ class Payment implements \JsonSerializable
      * Sets Source Type.
      * The source type for this payment.
      *
-     * Current values include `CARD`, `BANK_ACCOUNT`, `WALLET`, `BUY_NOW_PAY_LATER`, `CASH`, or
-     * `EXTERNAL`. For information about these payment source types,
+     * Current values include `CARD`, `BANK_ACCOUNT`, `WALLET`, `BUY_NOW_PAY_LATER`, `CASH`
+     * and `EXTERNAL`. For information about these payment source types,
      * see [Take Payments](https://developer.squareup.com/docs/payments-api/take-payments).
      *
      * @maps source_type
@@ -829,7 +843,19 @@ class Payment implements \JsonSerializable
 
     /**
      * Returns Customer Id.
-     * The [Customer]($m/Customer) ID of the customer associated with the payment.
+     * The ID of the customer associated with the payment. If the ID is
+     * not provided in the `CreatePayment` request that was used to create the `Payment`,
+     * Square may use information in the request
+     * (such as the billing and shipping address, email address, and payment source)
+     * to identify a matching customer profile in the Customer Directory.
+     * If found, the profile ID is used. If a profile is not found, the
+     * API attempts to create an
+     * [instant profile](https://developer.squareup.com/docs/customers-api/what-it-does#instant-profiles).
+     * If the API cannot create an
+     * instant profile (either because the seller has disabled it or the
+     * seller's region prevents creating it), this field remains unset. Note that
+     * this process is asynchronous and it may take some time before a
+     * customer ID is added to the payment.
      */
     public function getCustomerId(): ?string
     {
@@ -838,7 +864,19 @@ class Payment implements \JsonSerializable
 
     /**
      * Sets Customer Id.
-     * The [Customer]($m/Customer) ID of the customer associated with the payment.
+     * The ID of the customer associated with the payment. If the ID is
+     * not provided in the `CreatePayment` request that was used to create the `Payment`,
+     * Square may use information in the request
+     * (such as the billing and shipping address, email address, and payment source)
+     * to identify a matching customer profile in the Customer Directory.
+     * If found, the profile ID is used. If a profile is not found, the
+     * API attempts to create an
+     * [instant profile](https://developer.squareup.com/docs/customers-api/what-it-does#instant-profiles).
+     * If the API cannot create an
+     * instant profile (either because the seller has disabled it or the
+     * seller's region prevents creating it), this field remains unset. Note that
+     * this process is asynchronous and it may take some time before a
+     * customer ID is added to the payment.
      *
      * @maps customer_id
      */
@@ -1188,7 +1226,10 @@ class Payment implements \JsonSerializable
      */
     public function getVersionToken(): ?string
     {
-        return $this->versionToken;
+        if (count($this->versionToken) == 0) {
+            return null;
+        }
+        return $this->versionToken['value'];
     }
 
     /**
@@ -1200,7 +1241,17 @@ class Payment implements \JsonSerializable
      */
     public function setVersionToken(?string $versionToken): void
     {
-        $this->versionToken = $versionToken;
+        $this->versionToken['value'] = $versionToken;
+    }
+
+    /**
+     * Unsets Version Token.
+     * Used for optimistic concurrency. This opaque token identifies a specific version of the
+     * `Payment` object.
+     */
+    public function unsetVersionToken(): void
+    {
+        $this->versionToken = [];
     }
 
     /**
@@ -1251,8 +1302,8 @@ class Payment implements \JsonSerializable
         if (isset($this->delayDuration)) {
             $json['delay_duration']                   = $this->delayDuration;
         }
-        if (isset($this->delayAction)) {
-            $json['delay_action']                     = $this->delayAction;
+        if (!empty($this->delayAction)) {
+            $json['delay_action']                     = $this->delayAction['value'];
         }
         if (isset($this->delayedUntil)) {
             $json['delayed_until']                    = $this->delayedUntil;
@@ -1332,8 +1383,8 @@ class Payment implements \JsonSerializable
         if (isset($this->applicationDetails)) {
             $json['application_details']              = $this->applicationDetails;
         }
-        if (isset($this->versionToken)) {
-            $json['version_token']                    = $this->versionToken;
+        if (!empty($this->versionToken)) {
+            $json['version_token']                    = $this->versionToken['value'];
         }
         $json = array_filter($json, function ($val) {
             return $val !== null;

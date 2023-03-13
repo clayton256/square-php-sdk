@@ -9,14 +9,14 @@ use stdClass;
 /**
  * A filter based on the order `customer_id` and any tender `customer_id`
  * associated with the order. It does not filter based on the
- * [FulfillmentRecipient]($m/OrderFulfillmentRecipient) `customer_id`.
+ * [FulfillmentRecipient]($m/FulfillmentRecipient) `customer_id`.
  */
 class SearchOrdersCustomerFilter implements \JsonSerializable
 {
     /**
-     * @var string[]|null
+     * @var array
      */
-    private $customerIds;
+    private $customerIds = [];
 
     /**
      * Returns Customer Ids.
@@ -28,7 +28,10 @@ class SearchOrdersCustomerFilter implements \JsonSerializable
      */
     public function getCustomerIds(): ?array
     {
-        return $this->customerIds;
+        if (count($this->customerIds) == 0) {
+            return null;
+        }
+        return $this->customerIds['value'];
     }
 
     /**
@@ -43,7 +46,18 @@ class SearchOrdersCustomerFilter implements \JsonSerializable
      */
     public function setCustomerIds(?array $customerIds): void
     {
-        $this->customerIds = $customerIds;
+        $this->customerIds['value'] = $customerIds;
+    }
+
+    /**
+     * Unsets Customer Ids.
+     * A list of customer IDs to filter by.
+     *
+     * Max: 10 customer IDs.
+     */
+    public function unsetCustomerIds(): void
+    {
+        $this->customerIds = [];
     }
 
     /**
@@ -58,8 +72,8 @@ class SearchOrdersCustomerFilter implements \JsonSerializable
     public function jsonSerialize(bool $asArrayWhenEmpty = false)
     {
         $json = [];
-        if (isset($this->customerIds)) {
-            $json['customer_ids'] = $this->customerIds;
+        if (!empty($this->customerIds)) {
+            $json['customer_ids'] = $this->customerIds['value'];
         }
         $json = array_filter($json, function ($val) {
             return $val !== null;

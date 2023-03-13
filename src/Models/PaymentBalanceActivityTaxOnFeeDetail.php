@@ -9,9 +9,14 @@ use stdClass;
 class PaymentBalanceActivityTaxOnFeeDetail implements \JsonSerializable
 {
     /**
-     * @var string|null
+     * @var array
      */
-    private $paymentId;
+    private $paymentId = [];
+
+    /**
+     * @var array
+     */
+    private $taxRateDescription = [];
 
     /**
      * Returns Payment Id.
@@ -19,7 +24,10 @@ class PaymentBalanceActivityTaxOnFeeDetail implements \JsonSerializable
      */
     public function getPaymentId(): ?string
     {
-        return $this->paymentId;
+        if (count($this->paymentId) == 0) {
+            return null;
+        }
+        return $this->paymentId['value'];
     }
 
     /**
@@ -30,7 +38,48 @@ class PaymentBalanceActivityTaxOnFeeDetail implements \JsonSerializable
      */
     public function setPaymentId(?string $paymentId): void
     {
-        $this->paymentId = $paymentId;
+        $this->paymentId['value'] = $paymentId;
+    }
+
+    /**
+     * Unsets Payment Id.
+     * The ID of the payment associated with this activity.
+     */
+    public function unsetPaymentId(): void
+    {
+        $this->paymentId = [];
+    }
+
+    /**
+     * Returns Tax Rate Description.
+     * The description of the tax rate being applied. For example: "GST", "HST".
+     */
+    public function getTaxRateDescription(): ?string
+    {
+        if (count($this->taxRateDescription) == 0) {
+            return null;
+        }
+        return $this->taxRateDescription['value'];
+    }
+
+    /**
+     * Sets Tax Rate Description.
+     * The description of the tax rate being applied. For example: "GST", "HST".
+     *
+     * @maps tax_rate_description
+     */
+    public function setTaxRateDescription(?string $taxRateDescription): void
+    {
+        $this->taxRateDescription['value'] = $taxRateDescription;
+    }
+
+    /**
+     * Unsets Tax Rate Description.
+     * The description of the tax rate being applied. For example: "GST", "HST".
+     */
+    public function unsetTaxRateDescription(): void
+    {
+        $this->taxRateDescription = [];
     }
 
     /**
@@ -45,8 +94,11 @@ class PaymentBalanceActivityTaxOnFeeDetail implements \JsonSerializable
     public function jsonSerialize(bool $asArrayWhenEmpty = false)
     {
         $json = [];
-        if (isset($this->paymentId)) {
-            $json['payment_id'] = $this->paymentId;
+        if (!empty($this->paymentId)) {
+            $json['payment_id']           = $this->paymentId['value'];
+        }
+        if (!empty($this->taxRateDescription)) {
+            $json['tax_rate_description'] = $this->taxRateDescription['value'];
         }
         $json = array_filter($json, function ($val) {
             return $val !== null;

@@ -23,9 +23,9 @@ class PayoutEntry implements \JsonSerializable
     private $payoutId;
 
     /**
-     * @var string|null
+     * @var array
      */
-    private $effectiveAt;
+    private $effectiveAt = [];
 
     /**
      * @var string|null
@@ -46,6 +46,16 @@ class PayoutEntry implements \JsonSerializable
      * @var Money|null
      */
     private $netAmountMoney;
+
+    /**
+     * @var PaymentBalanceActivityAppFeeRevenueDetail|null
+     */
+    private $typeAppFeeRevenueDetails;
+
+    /**
+     * @var PaymentBalanceActivityAppFeeRefundDetail|null
+     */
+    private $typeAppFeeRefundDetails;
 
     /**
      * @var PaymentBalanceActivityAutomaticSavingsDetail|null
@@ -205,7 +215,10 @@ class PayoutEntry implements \JsonSerializable
      */
     public function getEffectiveAt(): ?string
     {
-        return $this->effectiveAt;
+        if (count($this->effectiveAt) == 0) {
+            return null;
+        }
+        return $this->effectiveAt['value'];
     }
 
     /**
@@ -216,7 +229,16 @@ class PayoutEntry implements \JsonSerializable
      */
     public function setEffectiveAt(?string $effectiveAt): void
     {
-        $this->effectiveAt = $effectiveAt;
+        $this->effectiveAt['value'] = $effectiveAt;
+    }
+
+    /**
+     * Unsets Effective At.
+     * The timestamp of when the payout entry affected the balance, in RFC 3339 format.
+     */
+    public function unsetEffectiveAt(): void
+    {
+        $this->effectiveAt = [];
     }
 
     /**
@@ -334,6 +356,44 @@ class PayoutEntry implements \JsonSerializable
     }
 
     /**
+     * Returns Type App Fee Revenue Details.
+     */
+    public function getTypeAppFeeRevenueDetails(): ?PaymentBalanceActivityAppFeeRevenueDetail
+    {
+        return $this->typeAppFeeRevenueDetails;
+    }
+
+    /**
+     * Sets Type App Fee Revenue Details.
+     *
+     * @maps type_app_fee_revenue_details
+     */
+    public function setTypeAppFeeRevenueDetails(
+        ?PaymentBalanceActivityAppFeeRevenueDetail $typeAppFeeRevenueDetails
+    ): void {
+        $this->typeAppFeeRevenueDetails = $typeAppFeeRevenueDetails;
+    }
+
+    /**
+     * Returns Type App Fee Refund Details.
+     */
+    public function getTypeAppFeeRefundDetails(): ?PaymentBalanceActivityAppFeeRefundDetail
+    {
+        return $this->typeAppFeeRefundDetails;
+    }
+
+    /**
+     * Sets Type App Fee Refund Details.
+     *
+     * @maps type_app_fee_refund_details
+     */
+    public function setTypeAppFeeRefundDetails(
+        ?PaymentBalanceActivityAppFeeRefundDetail $typeAppFeeRefundDetails
+    ): void {
+        $this->typeAppFeeRefundDetails = $typeAppFeeRefundDetails;
+    }
+
+    /**
      * Returns Type Automatic Savings Details.
      */
     public function getTypeAutomaticSavingsDetails(): ?PaymentBalanceActivityAutomaticSavingsDetail
@@ -373,7 +433,6 @@ class PayoutEntry implements \JsonSerializable
 
     /**
      * Returns Type Charge Details.
-     * DESCRIPTION OF PaymentBalanceActivityChargeDetail
      */
     public function getTypeChargeDetails(): ?PaymentBalanceActivityChargeDetail
     {
@@ -382,7 +441,6 @@ class PayoutEntry implements \JsonSerializable
 
     /**
      * Sets Type Charge Details.
-     * DESCRIPTION OF PaymentBalanceActivityChargeDetail
      *
      * @maps type_charge_details
      */
@@ -721,8 +779,8 @@ class PayoutEntry implements \JsonSerializable
         $json = [];
         $json['id']                                               = $this->id;
         $json['payout_id']                                        = $this->payoutId;
-        if (isset($this->effectiveAt)) {
-            $json['effective_at']                                 = $this->effectiveAt;
+        if (!empty($this->effectiveAt)) {
+            $json['effective_at']                                 = $this->effectiveAt['value'];
         }
         if (isset($this->type)) {
             $json['type']                                         = $this->type;
@@ -735,6 +793,12 @@ class PayoutEntry implements \JsonSerializable
         }
         if (isset($this->netAmountMoney)) {
             $json['net_amount_money']                             = $this->netAmountMoney;
+        }
+        if (isset($this->typeAppFeeRevenueDetails)) {
+            $json['type_app_fee_revenue_details']                 = $this->typeAppFeeRevenueDetails;
+        }
+        if (isset($this->typeAppFeeRefundDetails)) {
+            $json['type_app_fee_refund_details']                  = $this->typeAppFeeRefundDetails;
         }
         if (isset($this->typeAutomaticSavingsDetails)) {
             $json['type_automatic_savings_details']               = $this->typeAutomaticSavingsDetails;

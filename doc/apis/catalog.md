@@ -39,6 +39,10 @@ children.
 IDs can be deleted. The response will only include IDs that were
 actually deleted.
 
+To ensure consistency, only one delete request is processed at a time per seller account.  
+While one (batch or non-batch) delete request is being processed, other (batched and non-batched)
+delete requests are rejected with the `429` error code.
+
 ```php
 function batchDeleteCatalogObjects(BatchDeleteCatalogObjectsRequest $body): ApiResponse
 ```
@@ -56,7 +60,7 @@ function batchDeleteCatalogObjects(BatchDeleteCatalogObjectsRequest $body): ApiR
 ## Example Usage
 
 ```php
-$body = new Models\BatchDeleteCatalogObjectsRequest;
+$body = new Models\BatchDeleteCatalogObjectsRequest();
 $body->setObjectIds(['W62UWFY35CWMYGVWK6TWJDNI', 'AA27W3M2GGTF3H6AVPNB77CK']);
 
 $apiResponse = $catalogApi->batchDeleteCatalogObjects($body);
@@ -131,6 +135,10 @@ batches will be processed in order as long as the total object count for the
 request (items, variations, modifier lists, discounts, and taxes) is no more
 than 10,000.
 
+To ensure consistency, only one update request is processed at a time per seller account.  
+While one (batch or non-batch) update request is being processed, other (batched and non-batched)
+update requests are rejected with the `429` error code.
+
 ```php
 function batchUpsertCatalogObjects(BatchUpsertCatalogObjectsRequest $body): ApiResponse
 ```
@@ -160,7 +168,7 @@ $body_batches_0_objects[0] = new Models\CatalogObject(
     $body_batches_0_objects_0_id
 );
 $body_batches_0_objects[0]->setPresentAtAllLocations(true);
-$body_batches_0_objects[0]->setItemData(new Models\CatalogItem);
+$body_batches_0_objects[0]->setItemData(new Models\CatalogItem());
 $body_batches_0_objects[0]->getItemData()->setName('Tea');
 $body_batches_0_objects[0]->getItemData()->setCategoryId('#Beverages');
 $body_batches_0_objects[0]->getItemData()->setTaxIds(['#SalesTax']);
@@ -184,7 +192,7 @@ $body_batches_0_objects[1] = new Models\CatalogObject(
     $body_batches_0_objects_1_id
 );
 $body_batches_0_objects[1]->setPresentAtAllLocations(true);
-$body_batches_0_objects[1]->setItemData(new Models\CatalogItem);
+$body_batches_0_objects[1]->setItemData(new Models\CatalogItem());
 $body_batches_0_objects[1]->getItemData()->setName('Coffee');
 $body_batches_0_objects[1]->getItemData()->setCategoryId('#Beverages');
 $body_batches_0_objects[1]->getItemData()->setTaxIds(['#SalesTax']);
@@ -406,7 +414,7 @@ function listCatalog(?string $cursor = null, ?string $types = null, ?int $catalo
 |  --- | --- | --- | --- |
 | `cursor` | `?string` | Query, Optional | The pagination cursor returned in the previous response. Leave unset for an initial request.<br>The page size is currently set to be 100.<br>See [Pagination](https://developer.squareup.com/docs/basics/api101/pagination) for more information. |
 | `types` | `?string` | Query, Optional | An optional case-insensitive, comma-separated list of object types to retrieve.<br><br>The valid values are defined in the [CatalogObjectType](../../doc/models/catalog-object-type.md) enum, for example,<br>`ITEM`, `ITEM_VARIATION`, `CATEGORY`, `DISCOUNT`, `TAX`,<br>`MODIFIER`, `MODIFIER_LIST`, `IMAGE`, etc.<br><br>If this is unspecified, the operation returns objects of all the top level types at the version<br>of the Square API used to make the request. Object types that are nested onto other object types<br>are not included in the defaults.<br><br>At the current API version the default object types are:<br>ITEM, CATEGORY, TAX, DISCOUNT, MODIFIER_LIST,<br>PRICING_RULE, PRODUCT_SET, TIME_PERIOD, MEASUREMENT_UNIT,<br>SUBSCRIPTION_PLAN, ITEM_OPTION, CUSTOM_ATTRIBUTE_DEFINITION, QUICK_AMOUNT_SETTINGS. |
-| `catalogVersion` | `?int` | Query, Optional | The specific version of the catalog objects to be included in the response.<br>This allows you to retrieve historical<br>versions of objects. The specified version value is matched against<br>the [CatalogObject](../../doc/models/catalog-object.md)s' `version` attribute.  If not included, results will<br>be from the current version of the catalog. |
+| `catalogVersion` | `?int` | Query, Optional | The specific version of the catalog objects to be included in the response.<br>This allows you to retrieve historical versions of objects. The specified version value is matched against<br>the [CatalogObject](../../doc/models/catalog-object.md)s' `version` attribute.  If not included, results will be from the<br>current version of the catalog. |
 
 ## Response Type
 
@@ -431,7 +439,11 @@ if ($apiResponse->isSuccess()) {
 
 # Upsert Catalog Object
 
-Creates or updates the target [CatalogObject](../../doc/models/catalog-object.md).
+Creates a new or updates the specified [CatalogObject](../../doc/models/catalog-object.md).
+
+To ensure consistency, only one update request is processed at a time per seller account.  
+While one (batch or non-batch) update request is being processed, other (batched and non-batched)
+update requests are rejected with the `429` error code.
 
 ```php
 function upsertCatalogObject(UpsertCatalogObjectRequest $body): ApiResponse
@@ -457,7 +469,7 @@ $body_object = new Models\CatalogObject(
     $body_object_type,
     $body_object_id
 );
-$body_object->setItemData(new Models\CatalogItem);
+$body_object->setItemData(new Models\CatalogItem());
 $body_object->getItemData()->setName('Cocoa');
 $body_object->getItemData()->setAbbreviation('Ch');
 $body_object_itemData_variations = [];
@@ -505,6 +517,10 @@ Deletion is a cascading event such that all children of the targeted object
 are also deleted. For example, deleting a [CatalogItem](../../doc/models/catalog-item.md)
 will also delete all of its
 [CatalogItemVariation](../../doc/models/catalog-item-variation.md) children.
+
+To ensure consistency, only one delete request is processed at a time per seller account.  
+While one (batch or non-batch) delete request is being processed, other (batched and non-batched)
+delete requests are rejected with the `429` error code.
 
 ```php
 function deleteCatalogObject(string $objectId): ApiResponse
@@ -619,9 +635,9 @@ function searchCatalogObjects(SearchCatalogObjectsRequest $body): ApiResponse
 ## Example Usage
 
 ```php
-$body = new Models\SearchCatalogObjectsRequest;
+$body = new Models\SearchCatalogObjectsRequest();
 $body->setObjectTypes([Models\CatalogObjectType::ITEM]);
-$body->setQuery(new Models\CatalogQuery);
+$body->setQuery(new Models\CatalogQuery());
 $body_query_prefixQuery_attributeName = 'name';
 $body_query_prefixQuery_attributePrefix = 'tea';
 $body->getQuery()->setPrefixQuery(new Models\CatalogQueryPrefix(
@@ -674,7 +690,7 @@ function searchCatalogItems(SearchCatalogItemsRequest $body): ApiResponse
 ## Example Usage
 
 ```php
-$body = new Models\SearchCatalogItemsRequest;
+$body = new Models\SearchCatalogItemsRequest();
 $body->setTextFilter('red');
 $body->setCategoryIds(['WINE_CATEGORY_ID']);
 $body->setStockLevels([Models\SearchCatalogItemsRequestStockLevel::OUT, Models\SearchCatalogItemsRequestStockLevel::LOW]);
@@ -684,21 +700,21 @@ $body->setSortOrder(Models\SortOrder::ASC);
 $body->setProductTypes([Models\CatalogItemProductType::REGULAR]);
 $body_customAttributeFilters = [];
 
-$body_customAttributeFilters[0] = new Models\CustomAttributeFilter;
+$body_customAttributeFilters[0] = new Models\CustomAttributeFilter();
 $body_customAttributeFilters[0]->setCustomAttributeDefinitionId('VEGAN_DEFINITION_ID');
 $body_customAttributeFilters[0]->setBoolFilter(true);
 
-$body_customAttributeFilters[1] = new Models\CustomAttributeFilter;
+$body_customAttributeFilters[1] = new Models\CustomAttributeFilter();
 $body_customAttributeFilters[1]->setCustomAttributeDefinitionId('BRAND_DEFINITION_ID');
 $body_customAttributeFilters[1]->setStringFilter('Dark Horse');
 
-$body_customAttributeFilters[2] = new Models\CustomAttributeFilter;
+$body_customAttributeFilters[2] = new Models\CustomAttributeFilter();
 $body_customAttributeFilters[2]->setKey('VINTAGE');
-$body_customAttributeFilters[2]->setNumberFilter(new Models\Range);
+$body_customAttributeFilters[2]->setNumberFilter(new Models\Range());
 $body_customAttributeFilters[2]->getNumberFilter()->setMin('2017');
 $body_customAttributeFilters[2]->getNumberFilter()->setMax('2018');
 
-$body_customAttributeFilters[3] = new Models\CustomAttributeFilter;
+$body_customAttributeFilters[3] = new Models\CustomAttributeFilter();
 $body_customAttributeFilters[3]->setCustomAttributeDefinitionId('VARIETAL_DEFINITION_ID');
 $body->setCustomAttributeFilters($body_customAttributeFilters);
 

@@ -12,24 +12,24 @@ use stdClass;
 class OrderFulfillmentRecipient implements \JsonSerializable
 {
     /**
-     * @var string|null
+     * @var array
      */
-    private $customerId;
+    private $customerId = [];
 
     /**
-     * @var string|null
+     * @var array
      */
-    private $displayName;
+    private $displayName = [];
 
     /**
-     * @var string|null
+     * @var array
      */
-    private $emailAddress;
+    private $emailAddress = [];
 
     /**
-     * @var string|null
+     * @var array
      */
-    private $phoneNumber;
+    private $phoneNumber = [];
 
     /**
      * @var Address|null
@@ -39,7 +39,6 @@ class OrderFulfillmentRecipient implements \JsonSerializable
     /**
      * Returns Customer Id.
      * The ID of the customer associated with the fulfillment.
-     *
      * If `customer_id` is provided, the fulfillment recipient's `display_name`,
      * `email_address`, and `phone_number` are automatically populated from the
      * targeted customer profile. If these fields are set in the request, the request
@@ -49,13 +48,15 @@ class OrderFulfillmentRecipient implements \JsonSerializable
      */
     public function getCustomerId(): ?string
     {
-        return $this->customerId;
+        if (count($this->customerId) == 0) {
+            return null;
+        }
+        return $this->customerId['value'];
     }
 
     /**
      * Sets Customer Id.
      * The ID of the customer associated with the fulfillment.
-     *
      * If `customer_id` is provided, the fulfillment recipient's `display_name`,
      * `email_address`, and `phone_number` are automatically populated from the
      * targeted customer profile. If these fields are set in the request, the request
@@ -67,25 +68,41 @@ class OrderFulfillmentRecipient implements \JsonSerializable
      */
     public function setCustomerId(?string $customerId): void
     {
-        $this->customerId = $customerId;
+        $this->customerId['value'] = $customerId;
+    }
+
+    /**
+     * Unsets Customer Id.
+     * The ID of the customer associated with the fulfillment.
+     * If `customer_id` is provided, the fulfillment recipient's `display_name`,
+     * `email_address`, and `phone_number` are automatically populated from the
+     * targeted customer profile. If these fields are set in the request, the request
+     * values override the information from the customer profile. If the
+     * targeted customer profile does not contain the necessary information and
+     * these fields are left unset, the request results in an error.
+     */
+    public function unsetCustomerId(): void
+    {
+        $this->customerId = [];
     }
 
     /**
      * Returns Display Name.
      * The display name of the fulfillment recipient. This field is required.
-     *
      * If provided, the display name overrides the corresponding customer profile value
      * indicated by `customer_id`.
      */
     public function getDisplayName(): ?string
     {
-        return $this->displayName;
+        if (count($this->displayName) == 0) {
+            return null;
+        }
+        return $this->displayName['value'];
     }
 
     /**
      * Sets Display Name.
      * The display name of the fulfillment recipient. This field is required.
-     *
      * If provided, the display name overrides the corresponding customer profile value
      * indicated by `customer_id`.
      *
@@ -93,25 +110,37 @@ class OrderFulfillmentRecipient implements \JsonSerializable
      */
     public function setDisplayName(?string $displayName): void
     {
-        $this->displayName = $displayName;
+        $this->displayName['value'] = $displayName;
+    }
+
+    /**
+     * Unsets Display Name.
+     * The display name of the fulfillment recipient. This field is required.
+     * If provided, the display name overrides the corresponding customer profile value
+     * indicated by `customer_id`.
+     */
+    public function unsetDisplayName(): void
+    {
+        $this->displayName = [];
     }
 
     /**
      * Returns Email Address.
      * The email address of the fulfillment recipient.
-     *
      * If provided, the email address overrides the corresponding customer profile value
      * indicated by `customer_id`.
      */
     public function getEmailAddress(): ?string
     {
-        return $this->emailAddress;
+        if (count($this->emailAddress) == 0) {
+            return null;
+        }
+        return $this->emailAddress['value'];
     }
 
     /**
      * Sets Email Address.
      * The email address of the fulfillment recipient.
-     *
      * If provided, the email address overrides the corresponding customer profile value
      * indicated by `customer_id`.
      *
@@ -119,25 +148,37 @@ class OrderFulfillmentRecipient implements \JsonSerializable
      */
     public function setEmailAddress(?string $emailAddress): void
     {
-        $this->emailAddress = $emailAddress;
+        $this->emailAddress['value'] = $emailAddress;
+    }
+
+    /**
+     * Unsets Email Address.
+     * The email address of the fulfillment recipient.
+     * If provided, the email address overrides the corresponding customer profile value
+     * indicated by `customer_id`.
+     */
+    public function unsetEmailAddress(): void
+    {
+        $this->emailAddress = [];
     }
 
     /**
      * Returns Phone Number.
      * The phone number of the fulfillment recipient. This field is required.
-     *
      * If provided, the phone number overrides the corresponding customer profile value
      * indicated by `customer_id`.
      */
     public function getPhoneNumber(): ?string
     {
-        return $this->phoneNumber;
+        if (count($this->phoneNumber) == 0) {
+            return null;
+        }
+        return $this->phoneNumber['value'];
     }
 
     /**
      * Sets Phone Number.
      * The phone number of the fulfillment recipient. This field is required.
-     *
      * If provided, the phone number overrides the corresponding customer profile value
      * indicated by `customer_id`.
      *
@@ -145,7 +186,18 @@ class OrderFulfillmentRecipient implements \JsonSerializable
      */
     public function setPhoneNumber(?string $phoneNumber): void
     {
-        $this->phoneNumber = $phoneNumber;
+        $this->phoneNumber['value'] = $phoneNumber;
+    }
+
+    /**
+     * Unsets Phone Number.
+     * The phone number of the fulfillment recipient. This field is required.
+     * If provided, the phone number overrides the corresponding customer profile value
+     * indicated by `customer_id`.
+     */
+    public function unsetPhoneNumber(): void
+    {
+        $this->phoneNumber = [];
     }
 
     /**
@@ -184,17 +236,17 @@ class OrderFulfillmentRecipient implements \JsonSerializable
     public function jsonSerialize(bool $asArrayWhenEmpty = false)
     {
         $json = [];
-        if (isset($this->customerId)) {
-            $json['customer_id']   = $this->customerId;
+        if (!empty($this->customerId)) {
+            $json['customer_id']   = $this->customerId['value'];
         }
-        if (isset($this->displayName)) {
-            $json['display_name']  = $this->displayName;
+        if (!empty($this->displayName)) {
+            $json['display_name']  = $this->displayName['value'];
         }
-        if (isset($this->emailAddress)) {
-            $json['email_address'] = $this->emailAddress;
+        if (!empty($this->emailAddress)) {
+            $json['email_address'] = $this->emailAddress['value'];
         }
-        if (isset($this->phoneNumber)) {
-            $json['phone_number']  = $this->phoneNumber;
+        if (!empty($this->phoneNumber)) {
+            $json['phone_number']  = $this->phoneNumber['value'];
         }
         if (isset($this->address)) {
             $json['address']       = $this->address;

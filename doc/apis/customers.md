@@ -99,18 +99,18 @@ function createCustomer(CreateCustomerRequest $body): ApiResponse
 ## Example Usage
 
 ```php
-$body = new Models\CreateCustomerRequest;
+$body = new Models\CreateCustomerRequest();
 $body->setGivenName('Amelia');
 $body->setFamilyName('Earhart');
 $body->setEmailAddress('Amelia.Earhart@example.com');
-$body->setAddress(new Models\Address);
+$body->setAddress(new Models\Address());
 $body->getAddress()->setAddressLine1('500 Electric Ave');
 $body->getAddress()->setAddressLine2('Suite 600');
 $body->getAddress()->setLocality('New York');
 $body->getAddress()->setAdministrativeDistrictLevel1('NY');
 $body->getAddress()->setPostalCode('10003');
 $body->getAddress()->setCountry(Models\Country::US);
-$body->setPhoneNumber('1-212-555-4240');
+$body->setPhoneNumber('+1-212-555-4240');
 $body->setReferenceId('YOUR_REFERENCE_ID');
 $body->setNote('a customer');
 
@@ -157,21 +157,21 @@ function searchCustomers(SearchCustomersRequest $body): ApiResponse
 ## Example Usage
 
 ```php
-$body = new Models\SearchCustomersRequest;
+$body = new Models\SearchCustomersRequest();
 $body->setLimit(2);
-$body->setQuery(new Models\CustomerQuery);
-$body->getQuery()->setFilter(new Models\CustomerFilter);
-$body->getQuery()->getFilter()->setCreationSource(new Models\CustomerCreationSourceFilter);
+$body->setQuery(new Models\CustomerQuery());
+$body->getQuery()->setFilter(new Models\CustomerFilter());
+$body->getQuery()->getFilter()->setCreationSource(new Models\CustomerCreationSourceFilter());
 $body->getQuery()->getFilter()->getCreationSource()->setValues([Models\CustomerCreationSource::THIRD_PARTY]);
 $body->getQuery()->getFilter()->getCreationSource()->setRule(Models\CustomerInclusionExclusion::INCLUDE_);
-$body->getQuery()->getFilter()->setCreatedAt(new Models\TimeRange);
+$body->getQuery()->getFilter()->setCreatedAt(new Models\TimeRange());
 $body->getQuery()->getFilter()->getCreatedAt()->setStartAt('2018-01-01T00:00:00+00:00');
 $body->getQuery()->getFilter()->getCreatedAt()->setEndAt('2018-02-01T00:00:00+00:00');
-$body->getQuery()->getFilter()->setEmailAddress(new Models\CustomerTextFilter);
+$body->getQuery()->getFilter()->setEmailAddress(new Models\CustomerTextFilter());
 $body->getQuery()->getFilter()->getEmailAddress()->setFuzzy('example.com');
-$body->getQuery()->getFilter()->setGroupIds(new Models\FilterValue);
+$body->getQuery()->getFilter()->setGroupIds(new Models\FilterValue());
 $body->getQuery()->getFilter()->getGroupIds()->setAll(['545AXB44B4XXWMVQ4W8SBT3HHF']);
-$body->getQuery()->setSort(new Models\CustomerSort);
+$body->getQuery()->setSort(new Models\CustomerSort());
 $body->getQuery()->getSort()->setField(Models\CustomerSortField::CREATED_AT);
 $body->getQuery()->getSort()->setOrder(Models\SortOrder::ASC);
 
@@ -193,7 +193,8 @@ if ($apiResponse->isSuccess()) {
 
 Deletes a customer profile from a business. This operation also unlinks any associated cards on file.
 
-As a best practice, you should include the `version` field in the request to enable [optimistic concurrency](https://developer.squareup.com/docs/working-with-apis/optimistic-concurrency) control. The value must be set to the current version of the customer profile.
+As a best practice, include the `version` field in the request to enable [optimistic concurrency](https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency) control.
+If included, the value must be set to the current version of the customer profile.
 
 To delete a customer profile that was created by merging existing profiles, you must use the ID of the newly created profile.
 
@@ -270,9 +271,12 @@ if ($apiResponse->isSuccess()) {
 
 # Update Customer
 
-Updates a customer profile. To change an attribute, specify the new value. To remove an attribute, specify the value as an empty string or empty object.
+Updates a customer profile. This endpoint supports sparse updates, so only new or changed fields are required in the request.
+To add or update a field, specify the new value. To remove a field, specify `null` and include the `X-Clear-Null` header set to `true`
+(recommended) or specify an empty string (string fields only).
 
-As a best practice, you should include the `version` field in the request to enable [optimistic concurrency](https://developer.squareup.com/docs/working-with-apis/optimistic-concurrency) control. The value must be set to the current version of the customer profile.
+As a best practice, include the `version` field in the request to enable [optimistic concurrency](https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency) control.
+If included, the value must be set to the current version of the customer profile.
 
 To update a customer profile that was created by merging existing profiles, you must use the ID of the newly created profile.
 
@@ -297,7 +301,7 @@ function updateCustomer(string $customerId, UpdateCustomerRequest $body): ApiRes
 
 ```php
 $customerId = 'customer_id8';
-$body = new Models\UpdateCustomerRequest;
+$body = new Models\UpdateCustomerRequest();
 $body->setEmailAddress('New.Amelia.Earhart@example.com');
 $body->setPhoneNumber('');
 $body->setNote('updated customer note');
@@ -350,7 +354,7 @@ $body_cardNonce = 'YOUR_CARD_NONCE';
 $body = new Models\CreateCustomerCardRequest(
     $body_cardNonce
 );
-$body->setBillingAddress(new Models\Address);
+$body->setBillingAddress(new Models\Address());
 $body->getBillingAddress()->setAddressLine1('500 Electric Ave');
 $body->getBillingAddress()->setAddressLine2('Suite 600');
 $body->getBillingAddress()->setLocality('New York');

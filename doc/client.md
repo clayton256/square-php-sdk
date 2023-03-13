@@ -5,7 +5,7 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `squareVersion` | `string` | Square Connect API versions<br>*Default*: `'2022-09-21'` |
+| `squareVersion` | `string` | Square Connect API versions<br>*Default*: `'2023-01-19'` |
 | `customUrl` | `string` | Sets the base URL requests are made to. Defaults to `https://connect.squareup.com`<br>*Default*: `'https://connect.squareup.com'` |
 | `environment` | `string` | The API environment. <br> **Default: `production`** |
 | `timeout` | `int` | Timeout for API calls in seconds.<br>*Default*: `60` |
@@ -24,17 +24,12 @@ The following parameters are configurable for the API Client:
 The API client can be initialized as follows:
 
 ```php
-$client = new Square\SquareClient([
-    // Set authentication parameters
-    'accessToken' => 'AccessToken',
-    'squareVersion' => '2022-09-21',
-
-    // Set the environment
-    'environment' => 'production',
-
-    // Set configuration parameters
-    'customUrl' => 'https://connect.squareup.com',
-]);
+$client = Square\SquareClientBuilder::init()
+    ->accessToken('AccessToken')
+    ->squareVersion('2023-01-19')
+    ->environment('production')
+    ->customUrl('https://connect.squareup.com')
+    ->build();
 ```
 
 API calls return an `ApiResponse` object that includes the following fields:
@@ -52,10 +47,10 @@ API calls return an `ApiResponse` object that includes the following fields:
 
 require_once "vendor/autoload.php";
 
-$client = new Square\SquareClient([
-    'accessToken' => 'AccessToken',
-    'squareVersion' => '2022-09-21',
-]);
+$client = Square\SquareClientBuilder::init()
+    ->accessToken('AccessToken')
+    ->squareVersion('2023-01-19')
+    ->build();
 
 $locationsApi = $client->getLocationsApi();
 
@@ -86,6 +81,7 @@ The gateway for the SDK. This class acts as a factory for the Apis and also hold
 | getApplePayApi() | Gets ApplePayApi |
 | getBankAccountsApi() | Gets BankAccountsApi |
 | getBookingsApi() | Gets BookingsApi |
+| getBookingCustomAttributesApi() | Gets BookingCustomAttributesApi |
 | getCardsApi() | Gets CardsApi |
 | getCashDrawersApi() | Gets CashDrawersApi |
 | getCatalogApi() | Gets CatalogApi |
@@ -102,11 +98,13 @@ The gateway for the SDK. This class acts as a factory for the Apis and also hold
 | getInvoicesApi() | Gets InvoicesApi |
 | getLaborApi() | Gets LaborApi |
 | getLocationsApi() | Gets LocationsApi |
+| getLocationCustomAttributesApi() | Gets LocationCustomAttributesApi |
 | getCheckoutApi() | Gets CheckoutApi |
 | getTransactionsApi() | Gets TransactionsApi |
 | getLoyaltyApi() | Gets LoyaltyApi |
 | getMerchantsApi() | Gets MerchantsApi |
 | getOrdersApi() | Gets OrdersApi |
+| getOrderCustomAttributesApi() | Gets OrderCustomAttributesApi |
 | getPaymentsApi() | Gets PaymentsApi |
 | getPayoutsApi() | Gets PayoutsApi |
 | getRefundsApi() | Gets RefundsApi |
