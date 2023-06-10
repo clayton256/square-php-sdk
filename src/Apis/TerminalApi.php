@@ -8,7 +8,6 @@ use Core\Request\Parameters\BodyParam;
 use Core\Request\Parameters\HeaderParam;
 use Core\Request\Parameters\TemplateParam;
 use CoreInterfaces\Core\Request\RequestMethod;
-use Square\Exceptions\ApiException;
 use Square\Http\ApiResponse;
 use Square\Models\CancelTerminalActionResponse;
 use Square\Models\CancelTerminalCheckoutResponse;
@@ -19,6 +18,7 @@ use Square\Models\CreateTerminalCheckoutRequest;
 use Square\Models\CreateTerminalCheckoutResponse;
 use Square\Models\CreateTerminalRefundRequest;
 use Square\Models\CreateTerminalRefundResponse;
+use Square\Models\DismissTerminalActionResponse;
 use Square\Models\GetTerminalActionResponse;
 use Square\Models\GetTerminalCheckoutResponse;
 use Square\Models\GetTerminalRefundResponse;
@@ -40,8 +40,6 @@ class TerminalApi extends BaseApi
      *        See the corresponding object definition for field details.
      *
      * @return ApiResponse Response from the API call
-     *
-     * @throws ApiException Thrown if API call fails
      */
     public function createTerminalAction(CreateTerminalActionRequest $body): ApiResponse
     {
@@ -64,8 +62,6 @@ class TerminalApi extends BaseApi
      *        See the corresponding object definition for field details.
      *
      * @return ApiResponse Response from the API call
-     *
-     * @throws ApiException Thrown if API call fails
      */
     public function searchTerminalActions(SearchTerminalActionsRequest $body): ApiResponse
     {
@@ -82,11 +78,9 @@ class TerminalApi extends BaseApi
      * Retrieves a Terminal action request by `action_id`. Terminal action requests are available for 30
      * days.
      *
-     * @param string $actionId Unique ID for the desired `TerminalAction`
+     * @param string $actionId Unique ID for the desired `TerminalAction`.
      *
      * @return ApiResponse Response from the API call
-     *
-     * @throws ApiException Thrown if API call fails
      */
     public function getTerminalAction(string $actionId): ApiResponse
     {
@@ -102,11 +96,9 @@ class TerminalApi extends BaseApi
     /**
      * Cancels a Terminal action request if the status of the request permits it.
      *
-     * @param string $actionId Unique ID for the desired `TerminalAction`
+     * @param string $actionId Unique ID for the desired `TerminalAction`.
      *
      * @return ApiResponse Response from the API call
-     *
-     * @throws ApiException Thrown if API call fails
      */
     public function cancelTerminalAction(string $actionId): ApiResponse
     {
@@ -115,6 +107,28 @@ class TerminalApi extends BaseApi
             ->parameters(TemplateParam::init('action_id', $actionId));
 
         $_resHandler = $this->responseHandler()->type(CancelTerminalActionResponse::class)->returnApiResponse();
+
+        return $this->execute($_reqBuilder, $_resHandler);
+    }
+
+    /**
+     * Dismisses a Terminal action request if the status and type of the request permits it.
+     *
+     * See [Link and Dismiss Actions](https://developer.squareup.com/docs/terminal-api/advanced-
+     * features/custom-workflows/link-and-dismiss-actions) for more details.
+     *
+     * @param string $actionId Unique ID for the `TerminalAction` associated with the waiting dialog
+     *        to be dismissed.
+     *
+     * @return ApiResponse Response from the API call
+     */
+    public function dismissTerminalAction(string $actionId): ApiResponse
+    {
+        $_reqBuilder = $this->requestBuilder(RequestMethod::POST, '/v2/terminals/actions/{action_id}/dismiss')
+            ->auth('global')
+            ->parameters(TemplateParam::init('action_id', $actionId));
+
+        $_resHandler = $this->responseHandler()->type(DismissTerminalActionResponse::class)->returnApiResponse();
 
         return $this->execute($_reqBuilder, $_resHandler);
     }
@@ -129,8 +143,6 @@ class TerminalApi extends BaseApi
      *        See the corresponding object definition for field details.
      *
      * @return ApiResponse Response from the API call
-     *
-     * @throws ApiException Thrown if API call fails
      */
     public function createTerminalCheckout(CreateTerminalCheckoutRequest $body): ApiResponse
     {
@@ -154,8 +166,6 @@ class TerminalApi extends BaseApi
      *        See the corresponding object definition for field details.
      *
      * @return ApiResponse Response from the API call
-     *
-     * @throws ApiException Thrown if API call fails
      */
     public function searchTerminalCheckouts(SearchTerminalCheckoutsRequest $body): ApiResponse
     {
@@ -175,8 +185,6 @@ class TerminalApi extends BaseApi
      * @param string $checkoutId The unique ID for the desired `TerminalCheckout`.
      *
      * @return ApiResponse Response from the API call
-     *
-     * @throws ApiException Thrown if API call fails
      */
     public function getTerminalCheckout(string $checkoutId): ApiResponse
     {
@@ -195,8 +203,6 @@ class TerminalApi extends BaseApi
      * @param string $checkoutId The unique ID for the desired `TerminalCheckout`.
      *
      * @return ApiResponse Response from the API call
-     *
-     * @throws ApiException Thrown if API call fails
      */
     public function cancelTerminalCheckout(string $checkoutId): ApiResponse
     {
@@ -221,8 +227,6 @@ class TerminalApi extends BaseApi
      *        See the corresponding object definition for field details.
      *
      * @return ApiResponse Response from the API call
-     *
-     * @throws ApiException Thrown if API call fails
      */
     public function createTerminalRefund(CreateTerminalRefundRequest $body): ApiResponse
     {
@@ -245,8 +249,6 @@ class TerminalApi extends BaseApi
      *        See the corresponding object definition for field details.
      *
      * @return ApiResponse Response from the API call
-     *
-     * @throws ApiException Thrown if API call fails
      */
     public function searchTerminalRefunds(SearchTerminalRefundsRequest $body): ApiResponse
     {
@@ -265,8 +267,6 @@ class TerminalApi extends BaseApi
      * @param string $terminalRefundId The unique ID for the desired `TerminalRefund`.
      *
      * @return ApiResponse Response from the API call
-     *
-     * @throws ApiException Thrown if API call fails
      */
     public function getTerminalRefund(string $terminalRefundId): ApiResponse
     {
@@ -286,8 +286,6 @@ class TerminalApi extends BaseApi
      * @param string $terminalRefundId The unique ID for the desired `TerminalRefund`.
      *
      * @return ApiResponse Response from the API call
-     *
-     * @throws ApiException Thrown if API call fails
      */
     public function cancelTerminalRefund(string $terminalRefundId): ApiResponse
     {

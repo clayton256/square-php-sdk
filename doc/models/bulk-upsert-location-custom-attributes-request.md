@@ -21,35 +21,71 @@ Represents a [BulkUpsertLocationCustomAttributes](../../doc/apis/location-custom
     "key0": {
       "location_id": "location_id4",
       "custom_attribute": {
-        "key": null,
-        "value": null,
-        "version": null,
-        "visibility": null,
-        "definition": null
+        "key": "key8",
+        "value": {
+          "key1": "val1",
+          "key2": "val2"
+        },
+        "version": 82,
+        "visibility": "VISIBILITY_READ_WRITE_VALUES",
+        "definition": {
+          "key": "key8",
+          "schema": {
+            "key1": "val1",
+            "key2": "val2"
+          },
+          "name": "name8",
+          "description": "description8",
+          "visibility": "VISIBILITY_HIDDEN"
+        }
       },
-      "idempotency_key": null
+      "idempotency_key": "idempotency_key6"
     },
     "key1": {
       "location_id": "location_id5",
       "custom_attribute": {
-        "key": null,
-        "value": null,
-        "version": null,
-        "visibility": null,
-        "definition": null
+        "key": "key9",
+        "value": {
+          "key1": "val1",
+          "key2": "val2"
+        },
+        "version": 83,
+        "visibility": "VISIBILITY_READ_ONLY",
+        "definition": {
+          "key": "key9",
+          "schema": {
+            "key1": "val1",
+            "key2": "val2"
+          },
+          "name": "name9",
+          "description": "description9",
+          "visibility": "VISIBILITY_READ_ONLY"
+        }
       },
-      "idempotency_key": null
+      "idempotency_key": "idempotency_key7"
     },
     "key2": {
       "location_id": "location_id6",
       "custom_attribute": {
-        "key": null,
-        "value": null,
-        "version": null,
-        "visibility": null,
-        "definition": null
+        "key": "key0",
+        "value": {
+          "key1": "val1",
+          "key2": "val2"
+        },
+        "version": 84,
+        "visibility": "VISIBILITY_HIDDEN",
+        "definition": {
+          "key": "key0",
+          "schema": {
+            "key1": "val1",
+            "key2": "val2"
+          },
+          "name": "name0",
+          "description": "description0",
+          "visibility": "VISIBILITY_READ_WRITE_VALUES"
+        }
       },
-      "idempotency_key": null
+      "idempotency_key": "idempotency_key8"
     }
   }
 }

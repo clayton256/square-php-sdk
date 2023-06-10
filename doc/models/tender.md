@@ -24,25 +24,18 @@ Represents a tender (i.e., a method of payment) used in a Square transaction.
 | `cardDetails` | [`?TenderCardDetails`](../../doc/models/tender-card-details.md) | Optional | Represents additional details of a tender with `type` `CARD` or `SQUARE_GIFT_CARD` | getCardDetails(): ?TenderCardDetails | setCardDetails(?TenderCardDetails cardDetails): void |
 | `cashDetails` | [`?TenderCashDetails`](../../doc/models/tender-cash-details.md) | Optional | Represents the details of a tender with `type` `CASH`. | getCashDetails(): ?TenderCashDetails | setCashDetails(?TenderCashDetails cashDetails): void |
 | `additionalRecipients` | [`?(AdditionalRecipient[])`](../../doc/models/additional-recipient.md) | Optional | Additional recipients (other than the merchant) receiving a portion of this tender.<br>For example, fees assessed on the purchase by a third party integration. | getAdditionalRecipients(): ?array | setAdditionalRecipients(?array additionalRecipients): void |
-| `paymentId` | `?string` | Optional | The ID of the [Payment](../../doc/models/payment.md) that corresponds to this tender.<br>This value is only present for payments created with the v2 Payments API.<br>**Constraints**: *Maximum Length*: `192` | getPaymentId(): ?string | setPaymentId(?string paymentId): void |
+| `paymentId` | `?string` | Optional | The ID of the [Payment](entity:Payment) that corresponds to this tender.<br>This value is only present for payments created with the v2 Payments API.<br>**Constraints**: *Maximum Length*: `192` | getPaymentId(): ?string | setPaymentId(?string paymentId): void |
 
 ## Example (as JSON)
 
 ```json
 {
-  "id": null,
-  "location_id": null,
-  "transaction_id": null,
-  "note": null,
-  "amount_money": null,
-  "tip_money": null,
-  "processing_fee_money": null,
-  "customer_id": null,
-  "type": "WALLET",
-  "card_details": null,
-  "cash_details": null,
-  "additional_recipients": null,
-  "payment_id": null
+  "id": "id0",
+  "location_id": "location_id4",
+  "transaction_id": "transaction_id8",
+  "created_at": "created_at2",
+  "note": "note4",
+  "type": "WALLET"
 }
 ```
 

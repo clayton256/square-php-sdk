@@ -26,11 +26,14 @@ event types, and signature key.
 
 ```json
 {
-  "name": null,
-  "enabled": null,
-  "event_types": null,
-  "notification_url": null,
-  "api_version": null
+  "id": "id0",
+  "name": "name0",
+  "enabled": false,
+  "event_types": [
+    "event_types8",
+    "event_types9"
+  ],
+  "notification_url": "notification_url4"
 }
 ```
 

@@ -31,17 +31,12 @@ taken during the shift.
 
 ```json
 {
-  "id": null,
-  "employee_id": null,
-  "location_id": null,
-  "timezone": null,
+  "id": "id0",
+  "employee_id": "employee_id0",
+  "location_id": "location_id4",
+  "timezone": "timezone0",
   "start_at": "start_at2",
-  "end_at": null,
-  "wage": null,
-  "breaks": null,
-  "status": null,
-  "version": null,
-  "team_member_id": null
+  "end_at": "end_at0"
 }
 ```
 

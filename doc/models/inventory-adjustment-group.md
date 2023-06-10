@@ -18,8 +18,10 @@
 
 ```json
 {
-  "from_state": null,
-  "to_state": null
+  "id": "id0",
+  "root_adjustment_id": "root_adjustment_id0",
+  "from_state": "RESERVED_FOR_SALE",
+  "to_state": "SUPPORTED_BY_NEWER_VERSION"
 }
 ```
 

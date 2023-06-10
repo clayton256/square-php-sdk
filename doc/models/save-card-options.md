@@ -20,7 +20,8 @@ Describes save-card action fields.
 ```json
 {
   "customer_id": "customer_id8",
-  "reference_id": null
+  "card_id": "card_id4",
+  "reference_id": "reference_id2"
 }
 ```
 

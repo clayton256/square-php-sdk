@@ -31,16 +31,23 @@ Contains the details necessary to fulfill a shipment order.
 
 ```json
 {
-  "recipient": null,
-  "carrier": null,
-  "shipping_note": null,
-  "shipping_type": null,
-  "tracking_number": null,
-  "tracking_url": null,
-  "expected_shipped_at": null,
-  "canceled_at": null,
-  "cancel_reason": null,
-  "failure_reason": null
+  "recipient": {
+    "customer_id": "customer_id6",
+    "display_name": "display_name8",
+    "email_address": "email_address4",
+    "phone_number": "phone_number4",
+    "address": {
+      "address_line_1": "address_line_14",
+      "address_line_2": "address_line_24",
+      "address_line_3": "address_line_30",
+      "locality": "locality4",
+      "sublocality": "sublocality4"
+    }
+  },
+  "carrier": "carrier2",
+  "shipping_note": "shipping_note6",
+  "shipping_type": "shipping_type6",
+  "tracking_number": "tracking_number8"
 }
 ```
 

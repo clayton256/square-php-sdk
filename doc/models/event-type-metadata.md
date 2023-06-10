@@ -18,6 +18,10 @@ Contains the metadata of a webhook event type.
 ## Example (as JSON)
 
 ```json
-{}
+{
+  "event_type": "event_type0",
+  "api_version_introduced": "api_version_introduced0",
+  "release_status": "release_status4"
+}
 ```
 

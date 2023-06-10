@@ -22,7 +22,9 @@ Currently, a loyalty account can only be mapped to a buyer by phone number. For 
 
 ```json
 {
-  "phone_number": null
+  "id": "id0",
+  "created_at": "created_at2",
+  "phone_number": "phone_number2"
 }
 ```
 

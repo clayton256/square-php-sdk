@@ -35,15 +35,14 @@ function registerDomain(RegisterDomainRequest $body): ApiResponse
 
 ## Response Type
 
-[`RegisterDomainResponse`](../../doc/models/register-domain-response.md)
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`RegisterDomainResponse`](../../doc/models/register-domain-response.md).
 
 ## Example Usage
 
 ```php
-$body_domainName = 'example.com';
-$body = new Models\RegisterDomainRequest(
-    $body_domainName
-);
+$body = RegisterDomainRequestBuilder::init(
+    'example.com'
+)->build();
 
 $apiResponse = $applePayApi->registerDomain($body);
 
@@ -53,8 +52,8 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 

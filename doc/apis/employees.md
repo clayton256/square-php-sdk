@@ -40,7 +40,7 @@ function listEmployees(
 
 ## Response Type
 
-[`ListEmployeesResponse`](../../doc/models/list-employees-response.md)
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`ListEmployeesResponse`](../../doc/models/list-employees-response.md).
 
 ## Example Usage
 
@@ -53,9 +53,9 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 
 
@@ -77,7 +77,7 @@ function retrieveEmployee(string $id): ApiResponse
 
 ## Response Type
 
-[`RetrieveEmployeeResponse`](../../doc/models/retrieve-employee-response.md)
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`RetrieveEmployeeResponse`](../../doc/models/retrieve-employee-response.md).
 
 ## Example Usage
 
@@ -92,8 +92,8 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 

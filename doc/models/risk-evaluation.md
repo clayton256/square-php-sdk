@@ -23,7 +23,8 @@ provide the goods/services or refund the payment).
 
 ```json
 {
-  "risk_level": null
+  "created_at": "created_at2",
+  "risk_level": "MODERATE"
 }
 ```
 

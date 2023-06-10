@@ -25,7 +25,7 @@ For a more detailed discussion of the Catalog data model, please see the
 | `updatedAt` | `?string` | Optional | Last modification [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates) in RFC 3339 format, e.g., `"2016-08-15T23:59:33.123Z"`<br>would indicate the UTC time (denoted by `Z`) of August 15, 2016 at 23:59:33 and 123 milliseconds. | getUpdatedAt(): ?string | setUpdatedAt(?string updatedAt): void |
 | `version` | `?int` | Optional | The version of the object. When updating an object, the version supplied<br>must match the version in the database, otherwise the write will be rejected as conflicting. | getVersion(): ?int | setVersion(?int version): void |
 | `isDeleted` | `?bool` | Optional | If `true`, the object has been deleted from the database. Must be `false` for new objects<br>being inserted. When deleted, the `updated_at` field will equal the deletion time. | getIsDeleted(): ?bool | setIsDeleted(?bool isDeleted): void |
-| `customAttributeValues` | [`?array<string,CatalogCustomAttributeValue>`](../../doc/models/catalog-custom-attribute-value.md) | Optional | A map (key-value pairs) of application-defined custom attribute values. The value of a key-value pair<br>is a [CatalogCustomAttributeValue](../../doc/models/catalog-custom-attribute-value.md) object. The key is the `key` attribute<br>value defined in the associated [CatalogCustomAttributeDefinition](../../doc/models/catalog-custom-attribute-definition.md)<br>object defined by the application making the request.<br><br>If the `CatalogCustomAttributeDefinition` object is<br>defined by another application, the `CatalogCustomAttributeDefinition`'s key attribute value is prefixed by<br>the defining application ID. For example, if the `CatalogCustomAttributeDefinition` has a `key` attribute of<br>`"cocoa_brand"` and the defining application ID is `"abcd1234"`, the key in the map is `"abcd1234:cocoa_brand"`<br>if the application making the request is different from the application defining the custom attribute definition.<br>Otherwise, the key used in the map is simply `"cocoa_brand"`.<br><br>Application-defined custom attributes are set at a global (location-independent) level.<br>Custom attribute values are intended to store additional information about a catalog object<br>or associations with an entity in another system. Do not use custom attributes<br>to store any sensitive information (personally identifiable information, card details, etc.). | getCustomAttributeValues(): ?array | setCustomAttributeValues(?array customAttributeValues): void |
+| `customAttributeValues` | [`?array<string,CatalogCustomAttributeValue>`](../../doc/models/catalog-custom-attribute-value.md) | Optional | A map (key-value pairs) of application-defined custom attribute values. The value of a key-value pair<br>is a [CatalogCustomAttributeValue](entity:CatalogCustomAttributeValue) object. The key is the `key` attribute<br>value defined in the associated [CatalogCustomAttributeDefinition](entity:CatalogCustomAttributeDefinition)<br>object defined by the application making the request.<br><br>If the `CatalogCustomAttributeDefinition` object is<br>defined by another application, the `CatalogCustomAttributeDefinition`'s key attribute value is prefixed by<br>the defining application ID. For example, if the `CatalogCustomAttributeDefinition` has a `key` attribute of<br>`"cocoa_brand"` and the defining application ID is `"abcd1234"`, the key in the map is `"abcd1234:cocoa_brand"`<br>if the application making the request is different from the application defining the custom attribute definition.<br>Otherwise, the key used in the map is simply `"cocoa_brand"`.<br><br>Application-defined custom attributes are set at a global (location-independent) level.<br>Custom attribute values are intended to store additional information about a catalog object<br>or associations with an entity in another system. Do not use custom attributes<br>to store any sensitive information (personally identifiable information, card details, etc.). | getCustomAttributeValues(): ?array | setCustomAttributeValues(?array customAttributeValues): void |
 | `catalogV1Ids` | [`?(CatalogV1Id[])`](../../doc/models/catalog-v1-id.md) | Optional | The Connect v1 IDs for this object at each location where it is present, where they<br>differ from the object's Connect V2 ID. The field will only be present for objects that<br>have been created or modified by legacy APIs. | getCatalogV1Ids(): ?array | setCatalogV1Ids(?array catalogV1Ids): void |
 | `presentAtAllLocations` | `?bool` | Optional | If `true`, this object is present at all locations (including future locations), except where specified in<br>the `absent_at_location_ids` field. If `false`, this object is not present at any locations (including future locations),<br>except where specified in the `present_at_location_ids` field. If not specified, defaults to `true`. | getPresentAtAllLocations(): ?bool | setPresentAtAllLocations(?bool presentAtAllLocations): void |
 | `presentAtLocationIds` | `?(string[])` | Optional | A list of locations where the object is present, even if `present_at_all_locations` is `false`.<br>This can include locations that are deactivated. | getPresentAtLocationIds(): ?array | setPresentAtLocationIds(?array presentAtLocationIds): void |
@@ -36,13 +36,13 @@ For a more detailed discussion of the Catalog data model, please see the
 | `taxData` | [`?CatalogTax`](../../doc/models/catalog-tax.md) | Optional | A tax applicable to an item. | getTaxData(): ?CatalogTax | setTaxData(?CatalogTax taxData): void |
 | `discountData` | [`?CatalogDiscount`](../../doc/models/catalog-discount.md) | Optional | A discount applicable to items. | getDiscountData(): ?CatalogDiscount | setDiscountData(?CatalogDiscount discountData): void |
 | `modifierListData` | [`?CatalogModifierList`](../../doc/models/catalog-modifier-list.md) | Optional | A list of modifiers applicable to items at the time of sale.<br><br>For example, a "Condiments" modifier list applicable to a "Hot Dog" item<br>may contain "Ketchup", "Mustard", and "Relish" modifiers.<br>Use the `selection_type` field to specify whether or not multiple selections from<br>the modifier list are allowed. | getModifierListData(): ?CatalogModifierList | setModifierListData(?CatalogModifierList modifierListData): void |
-| `modifierData` | [`?CatalogModifier`](../../doc/models/catalog-modifier.md) | Optional | A modifier applicable to items at the time of sale. | getModifierData(): ?CatalogModifier | setModifierData(?CatalogModifier modifierData): void |
+| `modifierData` | [`?CatalogModifier`](../../doc/models/catalog-modifier.md) | Optional | A modifier applicable to items at the time of sale. An example of a modifier is a Cheese add-on to a Burger item. | getModifierData(): ?CatalogModifier | setModifierData(?CatalogModifier modifierData): void |
 | `timePeriodData` | [`?CatalogTimePeriod`](../../doc/models/catalog-time-period.md) | Optional | Represents a time period - either a single period or a repeating period. | getTimePeriodData(): ?CatalogTimePeriod | setTimePeriodData(?CatalogTimePeriod timePeriodData): void |
 | `productSetData` | [`?CatalogProductSet`](../../doc/models/catalog-product-set.md) | Optional | Represents a collection of catalog objects for the purpose of applying a<br>`PricingRule`. Including a catalog object will include all of its subtypes.<br>For example, including a category in a product set will include all of its<br>items and associated item variations in the product set. Including an item in<br>a product set will also include its item variations. | getProductSetData(): ?CatalogProductSet | setProductSetData(?CatalogProductSet productSetData): void |
 | `pricingRuleData` | [`?CatalogPricingRule`](../../doc/models/catalog-pricing-rule.md) | Optional | Defines how discounts are automatically applied to a set of items that match the pricing rule<br>during the active time period. | getPricingRuleData(): ?CatalogPricingRule | setPricingRuleData(?CatalogPricingRule pricingRuleData): void |
 | `imageData` | [`?CatalogImage`](../../doc/models/catalog-image.md) | Optional | An image file to use in Square catalogs. It can be associated with<br>`CatalogItem`, `CatalogItemVariation`, `CatalogCategory`, and `CatalogModifierList` objects.<br>Only the images on items and item variations are exposed in Dashboard.<br>Only the first image on an item is displayed in Square Point of Sale (SPOS).<br>Images on items and variations are displayed through Square Online Store.<br>Images on other object types are for use by 3rd party application developers. | getImageData(): ?CatalogImage | setImageData(?CatalogImage imageData): void |
 | `measurementUnitData` | [`?CatalogMeasurementUnit`](../../doc/models/catalog-measurement-unit.md) | Optional | Represents the unit used to measure a `CatalogItemVariation` and<br>specifies the precision for decimal quantities. | getMeasurementUnitData(): ?CatalogMeasurementUnit | setMeasurementUnitData(?CatalogMeasurementUnit measurementUnitData): void |
-| `subscriptionPlanData` | [`?CatalogSubscriptionPlan`](../../doc/models/catalog-subscription-plan.md) | Optional | Describes a subscription plan. For more information, see<br>[Set Up and Manage a Subscription Plan](https://developer.squareup.com/docs/subscriptions-api/setup-plan). | getSubscriptionPlanData(): ?CatalogSubscriptionPlan | setSubscriptionPlanData(?CatalogSubscriptionPlan subscriptionPlanData): void |
+| `subscriptionPlanData` | [`?CatalogSubscriptionPlan`](../../doc/models/catalog-subscription-plan.md) | Optional | Describes a subscription plan. A subscription plan represents what you want to sell in a subscription model, and includes references to each of the associated subscription plan variations.<br>For more information, see [Subscription Plans and Variations](https://developer.squareup.com/docs/subscriptions-api/plans-and-variations). | getSubscriptionPlanData(): ?CatalogSubscriptionPlan | setSubscriptionPlanData(?CatalogSubscriptionPlan subscriptionPlanData): void |
 | `itemOptionData` | [`?CatalogItemOption`](../../doc/models/catalog-item-option.md) | Optional | A group of variations for a `CatalogItem`. | getItemOptionData(): ?CatalogItemOption | setItemOptionData(?CatalogItemOption itemOptionData): void |
 | `itemOptionValueData` | [`?CatalogItemOptionValue`](../../doc/models/catalog-item-option-value.md) | Optional | An enumerated value that can link a<br>`CatalogItemVariation` to an item option as one of<br>its item option values. | getItemOptionValueData(): ?CatalogItemOptionValue | setItemOptionValueData(?CatalogItemOptionValue itemOptionValueData): void |
 | `customAttributeDefinitionData` | [`?CatalogCustomAttributeDefinition`](../../doc/models/catalog-custom-attribute-definition.md) | Optional | Contains information defining a custom attribute. Custom attributes are<br>intended to store additional information about a catalog object or to associate a<br>catalog object with an entity in another system. Do not use custom attributes<br>to store any sensitive information (personally identifiable information, card details, etc.).<br>[Read more about custom attributes](https://developer.squareup.com/docs/catalog-api/add-custom-attributes) | getCustomAttributeDefinitionData(): ?CatalogCustomAttributeDefinition | setCustomAttributeDefinitionData(?CatalogCustomAttributeDefinition customAttributeDefinitionData): void |
@@ -52,32 +52,140 @@ For a more detailed discussion of the Catalog data model, please see the
 
 ```json
 {
-  "type": "ITEM_VARIATION",
+  "type": "CATEGORY",
   "id": "id0",
-  "version": null,
-  "is_deleted": null,
-  "custom_attribute_values": null,
-  "catalog_v1_ids": null,
-  "present_at_all_locations": null,
-  "present_at_location_ids": null,
-  "absent_at_location_ids": null,
-  "item_data": null,
-  "category_data": null,
-  "item_variation_data": null,
-  "tax_data": null,
-  "discount_data": null,
-  "modifier_list_data": null,
-  "modifier_data": null,
-  "time_period_data": null,
-  "product_set_data": null,
-  "pricing_rule_data": null,
-  "image_data": null,
-  "measurement_unit_data": null,
-  "subscription_plan_data": null,
-  "item_option_data": null,
-  "item_option_value_data": null,
-  "custom_attribute_definition_data": null,
-  "quick_amounts_settings_data": null
+  "item_data": {
+    "object": {
+      "id": "#Cocoa",
+      "item_data": {
+        "abbreviation": "Ch",
+        "description": "Hot chocolate",
+        "name": "Cocoa",
+        "visibility": "PRIVATE"
+      },
+      "present_at_all_locations": true,
+      "type": "ITEM"
+    }
+  },
+  "category_data": {
+    "object": {
+      "category_data": {
+        "name": "Beverages"
+      },
+      "id": "#Beverages",
+      "present_at_all_locations": true,
+      "type": "CATEGORY"
+    }
+  },
+  "tax_data": {
+    "object": {
+      "id": "#SalesTax",
+      "present_at_all_locations": true,
+      "tax_data": {
+        "calculation_phase": "TAX_SUBTOTAL_PHASE",
+        "enabled": true,
+        "fee_applies_to_custom_amounts": true,
+        "inclusion_type": "ADDITIVE",
+        "name": "Sales Tax",
+        "percentage": "5.0"
+      },
+      "type": "TAX"
+    }
+  },
+  "discount_data": {
+    "object": {
+      "discount_data": {
+        "discount_type": "FIXED_PERCENTAGE",
+        "label_color": "red",
+        "name": "Welcome to the Dark(Roast) Side!",
+        "percentage": "5.4",
+        "pin_required": false
+      },
+      "id": "#Maythe4th",
+      "present_at_all_locations": true,
+      "type": "DISCOUNT"
+    }
+  },
+  "modifier_list_data": {
+    "id": "#MilkType",
+    "modifier_list_data": {
+      "allow_quantities": false,
+      "modifiers": [
+        {
+          "modifier_data": {
+            "name": "Whole Milk",
+            "price_money": {
+              "amount": 0,
+              "currency": "USD"
+            }
+          },
+          "present_at_all_locations": true,
+          "type": "MODIFIER"
+        },
+        {
+          "modifier_data": {
+            "name": "Almond Milk",
+            "price_money": {
+              "amount": 250,
+              "currency": "USD"
+            }
+          },
+          "present_at_all_locations": true,
+          "type": "MODIFIER"
+        },
+        {
+          "modifier_data": {
+            "name": "Soy Milk",
+            "price_money": {
+              "amount": 250,
+              "currency": "USD"
+            }
+          },
+          "present_at_all_locations": true,
+          "type": "MODIFIER"
+        }
+      ],
+      "name": "Milk Type",
+      "selection_type": "SINGLE"
+    },
+    "present_at_all_locations": true,
+    "type": "MODIFIER_LIST"
+  },
+  "modifier_data": {
+    "object": {
+      "modifier_data": {
+        "name": "Almond Milk",
+        "price_money": {
+          "amount": 250,
+          "currency": "USD"
+        }
+      },
+      "present_at_all_locations": true,
+      "type": "MODIFIER"
+    }
+  },
+  "updated_at": "updated_at4",
+  "version": 172,
+  "is_deleted": false,
+  "custom_attribute_values": {
+    "key0": {
+      "name": "name9",
+      "string_value": "string_value3",
+      "custom_attribute_definition_id": "custom_attribute_definition_id3",
+      "type": "BOOLEAN",
+      "number_value": "number_value9"
+    }
+  },
+  "catalog_v1_ids": [
+    {
+      "catalog_v1_id": "catalog_v1_id4",
+      "location_id": "location_id4"
+    },
+    {
+      "catalog_v1_id": "catalog_v1_id5",
+      "location_id": "location_id5"
+    }
+  ]
 }
 ```
 

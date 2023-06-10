@@ -18,17 +18,47 @@ that is part of the history of inventory changes for a particular
 | `adjustment` | [`?InventoryAdjustment`](../../doc/models/inventory-adjustment.md) | Optional | Represents a change in state or quantity of product inventory at a<br>particular time and location. | getAdjustment(): ?InventoryAdjustment | setAdjustment(?InventoryAdjustment adjustment): void |
 | `transfer` | [`?InventoryTransfer`](../../doc/models/inventory-transfer.md) | Optional | Represents the transfer of a quantity of product inventory at a<br>particular time from one location to another. | getTransfer(): ?InventoryTransfer | setTransfer(?InventoryTransfer transfer): void |
 | `measurementUnit` | [`?CatalogMeasurementUnit`](../../doc/models/catalog-measurement-unit.md) | Optional | Represents the unit used to measure a `CatalogItemVariation` and<br>specifies the precision for decimal quantities. | getMeasurementUnit(): ?CatalogMeasurementUnit | setMeasurementUnit(?CatalogMeasurementUnit measurementUnit): void |
-| `measurementUnitId` | `?string` | Optional | The ID of the [CatalogMeasurementUnit](../../doc/models/catalog-measurement-unit.md) object representing the catalog measurement unit associated with the inventory change. | getMeasurementUnitId(): ?string | setMeasurementUnitId(?string measurementUnitId): void |
+| `measurementUnitId` | `?string` | Optional | The ID of the [CatalogMeasurementUnit](entity:CatalogMeasurementUnit) object representing the catalog measurement unit associated with the inventory change. | getMeasurementUnitId(): ?string | setMeasurementUnitId(?string measurementUnitId): void |
 
 ## Example (as JSON)
 
 ```json
 {
-  "type": null,
-  "physical_count": null,
-  "adjustment": null,
-  "transfer": null,
-  "measurement_unit": null
+  "type": "TRANSFER",
+  "physical_count": {
+    "id": "id2",
+    "reference_id": "reference_id0",
+    "catalog_object_id": "catalog_object_id6",
+    "catalog_object_type": "catalog_object_type6",
+    "state": "SUPPORTED_BY_NEWER_VERSION"
+  },
+  "adjustment": {
+    "id": "id4",
+    "reference_id": "reference_id2",
+    "from_state": "IN_TRANSIT_TO",
+    "to_state": "SOLD",
+    "location_id": "location_id8"
+  },
+  "transfer": {
+    "id": "id8",
+    "reference_id": "reference_id6",
+    "state": "RESERVED_FOR_SALE",
+    "from_location_id": "from_location_id0",
+    "to_location_id": "to_location_id0"
+  },
+  "measurement_unit": {
+    "measurement_unit": {
+      "custom_unit": {
+        "name": "name2",
+        "abbreviation": "abbreviation4"
+      },
+      "area_unit": "IMPERIAL_SQUARE_MILE",
+      "length_unit": "METRIC_MILLIMETER",
+      "volume_unit": "GENERIC_CUP",
+      "weight_unit": "IMPERIAL_STONE"
+    },
+    "precision": 184
+  }
 }
 ```
 

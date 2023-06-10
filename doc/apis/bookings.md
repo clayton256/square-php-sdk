@@ -52,7 +52,7 @@ function listBookings(
 
 ## Response Type
 
-[`ListBookingsResponse`](../../doc/models/list-bookings-response.md)
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`ListBookingsResponse`](../../doc/models/list-bookings-response.md).
 
 ## Example Usage
 
@@ -65,15 +65,23 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 
 
 # Create Booking
 
 Creates a booking.
+
+The required input must include the following:
+
+- `Booking.location_id`
+- `Booking.start_at`
+- `Booking.team_member_id`
+- `Booking.AppointmentSegment.service_variation_id`
+- `Booking.AppointmentSegment.service_variation_version`
 
 To call this endpoint with buyer-level permissions, set `APPOINTMENTS_WRITE` for the OAuth scope.
 To call this endpoint with seller-level permissions, set `APPOINTMENTS_ALL_WRITE` and `APPOINTMENTS_WRITE` for the OAuth scope.
@@ -93,15 +101,14 @@ function createBooking(CreateBookingRequest $body): ApiResponse
 
 ## Response Type
 
-[`CreateBookingResponse`](../../doc/models/create-booking-response.md)
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`CreateBookingResponse`](../../doc/models/create-booking-response.md).
 
 ## Example Usage
 
 ```php
-$body_booking = new Models\Booking();
-$body = new Models\CreateBookingRequest(
-    $body_booking
-);
+$body = CreateBookingRequestBuilder::init(
+    BookingBuilder::init()->build()
+)->build();
 
 $apiResponse = $bookingsApi->createBooking($body);
 
@@ -111,9 +118,9 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 
 
@@ -136,21 +143,18 @@ function searchAvailability(SearchAvailabilityRequest $body): ApiResponse
 
 ## Response Type
 
-[`SearchAvailabilityResponse`](../../doc/models/search-availability-response.md)
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`SearchAvailabilityResponse`](../../doc/models/search-availability-response.md).
 
 ## Example Usage
 
 ```php
-$body_query_filter_startAtRange = new Models\TimeRange();
-$body_query_filter = new Models\SearchAvailabilityFilter(
-    $body_query_filter_startAtRange
-);
-$body_query = new Models\SearchAvailabilityQuery(
-    $body_query_filter
-);
-$body = new Models\SearchAvailabilityRequest(
-    $body_query
-);
+$body = SearchAvailabilityRequestBuilder::init(
+    SearchAvailabilityQueryBuilder::init(
+        SearchAvailabilityFilterBuilder::init(
+            TimeRangeBuilder::init()->build()
+        )->build()
+    )->build()
+)->build();
 
 $apiResponse = $bookingsApi->searchAvailability($body);
 
@@ -160,9 +164,9 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 
 
@@ -176,7 +180,7 @@ function retrieveBusinessBookingProfile(): ApiResponse
 
 ## Response Type
 
-[`RetrieveBusinessBookingProfileResponse`](../../doc/models/retrieve-business-booking-profile-response.md)
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`RetrieveBusinessBookingProfileResponse`](../../doc/models/retrieve-business-booking-profile-response.md).
 
 ## Example Usage
 
@@ -189,9 +193,9 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 
 
@@ -219,7 +223,7 @@ function listTeamMemberBookingProfiles(
 
 ## Response Type
 
-[`ListTeamMemberBookingProfilesResponse`](../../doc/models/list-team-member-booking-profiles-response.md)
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`ListTeamMemberBookingProfilesResponse`](../../doc/models/list-team-member-booking-profiles-response.md).
 
 ## Example Usage
 
@@ -234,9 +238,9 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 
 
@@ -256,7 +260,7 @@ function retrieveTeamMemberBookingProfile(string $teamMemberId): ApiResponse
 
 ## Response Type
 
-[`RetrieveTeamMemberBookingProfileResponse`](../../doc/models/retrieve-team-member-booking-profile-response.md)
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`RetrieveTeamMemberBookingProfileResponse`](../../doc/models/retrieve-team-member-booking-profile-response.md).
 
 ## Example Usage
 
@@ -271,9 +275,9 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 
 
@@ -292,11 +296,11 @@ function retrieveBooking(string $bookingId): ApiResponse
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `bookingId` | `string` | Template, Required | The ID of the [Booking](../../doc/models/booking.md) object representing the to-be-retrieved booking. |
+| `bookingId` | `string` | Template, Required | The ID of the [Booking](entity:Booking) object representing the to-be-retrieved booking. |
 
 ## Response Type
 
-[`RetrieveBookingResponse`](../../doc/models/retrieve-booking-response.md)
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`RetrieveBookingResponse`](../../doc/models/retrieve-booking-response.md).
 
 ## Example Usage
 
@@ -311,9 +315,9 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 
 
@@ -335,23 +339,26 @@ function updateBooking(string $bookingId, UpdateBookingRequest $body): ApiRespon
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `bookingId` | `string` | Template, Required | The ID of the [Booking](../../doc/models/booking.md) object representing the to-be-updated booking. |
+| `bookingId` | `string` | Template, Required | The ID of the [Booking](entity:Booking) object representing the to-be-updated booking. |
 | `body` | [`UpdateBookingRequest`](../../doc/models/update-booking-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
 
-[`UpdateBookingResponse`](../../doc/models/update-booking-response.md)
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`UpdateBookingResponse`](../../doc/models/update-booking-response.md).
 
 ## Example Usage
 
 ```php
 $bookingId = 'booking_id4';
-$body_booking = new Models\Booking();
-$body = new Models\UpdateBookingRequest(
-    $body_booking
-);
 
-$apiResponse = $bookingsApi->updateBooking($bookingId, $body);
+$body = UpdateBookingRequestBuilder::init(
+    BookingBuilder::init()->build()
+)->build();
+
+$apiResponse = $bookingsApi->updateBooking(
+    $bookingId,
+    $body
+);
 
 if ($apiResponse->isSuccess()) {
     $updateBookingResponse = $apiResponse->getResult();
@@ -359,9 +366,9 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 
 
@@ -383,20 +390,24 @@ function cancelBooking(string $bookingId, CancelBookingRequest $body): ApiRespon
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `bookingId` | `string` | Template, Required | The ID of the [Booking](../../doc/models/booking.md) object representing the to-be-cancelled booking. |
+| `bookingId` | `string` | Template, Required | The ID of the [Booking](entity:Booking) object representing the to-be-cancelled booking. |
 | `body` | [`CancelBookingRequest`](../../doc/models/cancel-booking-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
 
 ## Response Type
 
-[`CancelBookingResponse`](../../doc/models/cancel-booking-response.md)
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`CancelBookingResponse`](../../doc/models/cancel-booking-response.md).
 
 ## Example Usage
 
 ```php
 $bookingId = 'booking_id4';
-$body = new Models\CancelBookingRequest();
 
-$apiResponse = $bookingsApi->cancelBooking($bookingId, $body);
+$body = CancelBookingRequestBuilder::init()->build();
+
+$apiResponse = $bookingsApi->cancelBooking(
+    $bookingId,
+    $body
+);
 
 if ($apiResponse->isSuccess()) {
     $cancelBookingResponse = $apiResponse->getResult();
@@ -404,8 +415,8 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 

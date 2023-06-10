@@ -41,31 +41,17 @@ decreases by 2, and the stockable count automatically decreases by 0.4 bottle ac
 | `imageIds` | `?(string[])` | Optional | The IDs of images associated with this `CatalogItemVariation` instance.<br>These images will be shown to customers in Square Online Store. | getImageIds(): ?array | setImageIds(?array imageIds): void |
 | `teamMemberIds` | `?(string[])` | Optional | Tokens of employees that can perform the service represented by this variation. Only valid for<br>variations of type `APPOINTMENTS_SERVICE`. | getTeamMemberIds(): ?array | setTeamMemberIds(?array teamMemberIds): void |
 | `stockableConversion` | [`?CatalogStockConversion`](../../doc/models/catalog-stock-conversion.md) | Optional | Represents the rule of conversion between a stockable [CatalogItemVariation](../../doc/models/catalog-item-variation.md)<br>and a non-stockable sell-by or receive-by `CatalogItemVariation` that<br>share the same underlying stock. | getStockableConversion(): ?CatalogStockConversion | setStockableConversion(?CatalogStockConversion stockableConversion): void |
+| `itemVariationVendorInfoIds` | `?(string[])` | Optional | A list of ids of [CatalogItemVariationVendorInfo](entity:CatalogItemVariationVendorInfo) objects that<br>reference this ItemVariation. (Deprecated in favor of item_variation_vendor_infos) | getItemVariationVendorInfoIds(): ?array | setItemVariationVendorInfoIds(?array itemVariationVendorInfoIds): void |
 
 ## Example (as JSON)
 
 ```json
 {
-  "item_id": null,
-  "name": null,
-  "sku": null,
-  "upc": null,
-  "pricing_type": null,
-  "price_money": null,
-  "location_overrides": null,
-  "track_inventory": null,
-  "inventory_alert_type": null,
-  "inventory_alert_threshold": null,
-  "user_data": null,
-  "service_duration": null,
-  "available_for_booking": null,
-  "item_option_values": null,
-  "measurement_unit_id": null,
-  "sellable": null,
-  "stockable": null,
-  "image_ids": null,
-  "team_member_ids": null,
-  "stockable_conversion": null
+  "item_id": "item_id0",
+  "name": "name0",
+  "sku": "sku4",
+  "upc": "upc2",
+  "ordinal": 80
 }
 ```
 

@@ -19,7 +19,45 @@ to search based on [custom attributes](../../doc/models/custom-attribute.md) tha
 
 ```json
 {
-  "filters": null
+  "filters": [
+    {
+      "key": "key0",
+      "filter": {
+        "email": {
+          "exact": "exact2",
+          "fuzzy": "fuzzy8"
+        },
+        "phone": {
+          "exact": "exact6",
+          "fuzzy": "fuzzy2"
+        },
+        "text": {
+          "exact": "exact6",
+          "fuzzy": "fuzzy2"
+        },
+        "selection": {
+          "all": [
+            "all5"
+          ],
+          "any": [
+            "any2",
+            "any3"
+          ],
+          "none": [
+            "none7"
+          ]
+        },
+        "date": {
+          "start_at": "start_at2",
+          "end_at": "end_at0"
+        }
+      },
+      "updated_at": {
+        "start_at": "start_at8",
+        "end_at": "end_at4"
+      }
+    }
+  ]
 }
 ```
 

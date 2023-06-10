@@ -24,11 +24,23 @@ A custom attribute value. Each custom attribute value has a corresponding
 
 ```json
 {
-  "key": null,
-  "value": null,
-  "version": null,
-  "visibility": null,
-  "definition": null
+  "key": "key0",
+  "value": {
+    "key1": "val1",
+    "key2": "val2"
+  },
+  "version": 172,
+  "visibility": "VISIBILITY_READ_WRITE_VALUES",
+  "definition": {
+    "key": "key0",
+    "schema": {
+      "key1": "val1",
+      "key2": "val2"
+    },
+    "name": "name0",
+    "description": "description0",
+    "visibility": "VISIBILITY_HIDDEN"
+  }
 }
 ```
 

@@ -19,13 +19,25 @@ Represents an [UpsertLocationCustomAttribute](../../doc/apis/location-custom-att
 ```json
 {
   "custom_attribute": {
-    "key": null,
-    "value": null,
-    "version": null,
-    "visibility": null,
-    "definition": null
+    "key": "key2",
+    "value": {
+      "key1": "val1",
+      "key2": "val2"
+    },
+    "version": 102,
+    "visibility": "VISIBILITY_READ_ONLY",
+    "definition": {
+      "key": "key2",
+      "schema": {
+        "key1": "val1",
+        "key2": "val2"
+      },
+      "name": "name2",
+      "description": "description2",
+      "visibility": "VISIBILITY_READ_ONLY"
+    }
   },
-  "idempotency_key": null
+  "idempotency_key": "idempotency_key6"
 }
 ```
 

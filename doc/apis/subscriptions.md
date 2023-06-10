@@ -24,12 +24,14 @@ $subscriptionsApi = $client->getSubscriptionsApi();
 
 # Create Subscription
 
-Creates a subscription to a subscription plan by a customer.
+Enrolls a customer in a subscription.
 
 If you provide a card on file in the request, Square charges the card for
-the subscription. Otherwise, Square bills an invoice to the customer's email
+the subscription. Otherwise, Square sends an invoice to the customer's email
 address. The subscription starts immediately, unless the request includes
 the optional `start_date`. Each individual subscription is associated with a particular location.
+
+For more information, see [Create a subscription](https://developer.squareup.com/docs/subscriptions-api/manage-subscriptions#create-a-subscription).
 
 ```php
 function createSubscription(CreateSubscriptionRequest $body): ApiResponse
@@ -43,28 +45,33 @@ function createSubscription(CreateSubscriptionRequest $body): ApiResponse
 
 ## Response Type
 
-[`CreateSubscriptionResponse`](../../doc/models/create-subscription-response.md)
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`CreateSubscriptionResponse`](../../doc/models/create-subscription-response.md).
 
 ## Example Usage
 
 ```php
-$body_locationId = 'S8GWD5R9QB376';
-$body_planId = '6JHXF3B2CW3YKHDV4XEM674H';
-$body_customerId = 'CHFGVKYY8RSV93M5KCYTG4PN0G';
-$body = new Models\CreateSubscriptionRequest(
-    $body_locationId,
-    $body_planId,
-    $body_customerId
-);
-$body->setIdempotencyKey('8193148c-9586-11e6-99f9-28cfe92138cf');
-$body->setStartDate('2021-10-20');
-$body->setTaxPercentage('5');
-$body->setPriceOverrideMoney(new Models\Money());
-$body->getPriceOverrideMoney()->setAmount(100);
-$body->getPriceOverrideMoney()->setCurrency(Models\Currency::USD);
-$body->setCardId('ccof:qy5x8hHGYsgLrp4Q4GB');
-$body->setTimezone('America/Los_Angeles');
-$body->setSource(new Models\SubscriptionSource());
+$body = CreateSubscriptionRequestBuilder::init(
+    'S8GWD5R9QB376',
+    'CHFGVKYY8RSV93M5KCYTG4PN0G'
+)
+    ->idempotencyKey('8193148c-9586-11e6-99f9-28cfe92138cf')
+    ->planId('6JHXF3B2CW3YKHDV4XEM674H')
+    ->startDate('2021-10-20')
+    ->taxPercentage('5')
+    ->priceOverrideMoney(
+        MoneyBuilder::init()
+            ->amount(100)
+            ->currency(Currency::USD)
+            ->build()
+    )
+    ->cardId('ccof:qy5x8hHGYsgLrp4Q4GB')
+    ->timezone('America/Los_Angeles')
+    ->source(
+        SubscriptionSourceBuilder::init()
+            ->name('My App')
+            ->build()
+    )
+    ->build();
 
 $apiResponse = $subscriptionsApi->createSubscription($body);
 
@@ -74,9 +81,9 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 
 
@@ -97,9 +104,6 @@ If the request specifies customer IDs, the endpoint orders results
 first by location, within location by customer ID, and within
 customer by subscription creation date.
 
-For more information, see
-[Retrieve subscriptions](https://developer.squareup.com/docs/subscriptions-api/overview#retrieve-subscriptions).
-
 ```php
 function searchSubscriptions(SearchSubscriptionsRequest $body): ApiResponse
 ```
@@ -112,17 +116,36 @@ function searchSubscriptions(SearchSubscriptionsRequest $body): ApiResponse
 
 ## Response Type
 
-[`SearchSubscriptionsResponse`](../../doc/models/search-subscriptions-response.md)
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`SearchSubscriptionsResponse`](../../doc/models/search-subscriptions-response.md).
 
 ## Example Usage
 
 ```php
-$body = new Models\SearchSubscriptionsRequest();
-$body->setQuery(new Models\SearchSubscriptionsQuery());
-$body->getQuery()->setFilter(new Models\SearchSubscriptionsFilter());
-$body->getQuery()->getFilter()->setCustomerIds(['CHFGVKYY8RSV93M5KCYTG4PN0G']);
-$body->getQuery()->getFilter()->setLocationIds(['S8GWD5R9QB376']);
-$body->getQuery()->getFilter()->setSourceNames(['My App']);
+$body = SearchSubscriptionsRequestBuilder::init()
+    ->query(
+        SearchSubscriptionsQueryBuilder::init()
+            ->filter(
+                SearchSubscriptionsFilterBuilder::init()
+                    ->customerIds(
+                        [
+                            'CHFGVKYY8RSV93M5KCYTG4PN0G'
+                        ]
+                    )
+                    ->locationIds(
+                        [
+                            'S8GWD5R9QB376'
+                        ]
+                    )
+                    ->sourceNames(
+                        [
+                            'My App'
+                        ]
+                    )
+                    ->build()
+            )
+            ->build()
+    )
+    ->build();
 
 $apiResponse = $subscriptionsApi->searchSubscriptions($body);
 
@@ -132,15 +155,15 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 
 
 # Retrieve Subscription
 
-Retrieves a subscription.
+Retrieves a specific subscription.
 
 ```php
 function retrieveSubscription(string $subscriptionId, ?string $mInclude = null): ApiResponse
@@ -155,7 +178,7 @@ function retrieveSubscription(string $subscriptionId, ?string $mInclude = null):
 
 ## Response Type
 
-[`RetrieveSubscriptionResponse`](../../doc/models/retrieve-subscription-response.md)
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`RetrieveSubscriptionResponse`](../../doc/models/retrieve-subscription-response.md).
 
 ## Example Usage
 
@@ -170,16 +193,16 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 
 
 # Update Subscription
 
-Updates a subscription. You can set, modify, and clear the
-`subscription` field values.
+Updates a subscription by modifying or clearing `subscription` field values.
+To clear a field, set its value to `null`.
 
 ```php
 function updateSubscription(string $subscriptionId, UpdateSubscriptionRequest $body): ApiResponse
@@ -194,20 +217,22 @@ function updateSubscription(string $subscriptionId, UpdateSubscriptionRequest $b
 
 ## Response Type
 
-[`UpdateSubscriptionResponse`](../../doc/models/update-subscription-response.md)
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`UpdateSubscriptionResponse`](../../doc/models/update-subscription-response.md).
 
 ## Example Usage
 
 ```php
 $subscriptionId = 'subscription_id0';
-$body = new Models\UpdateSubscriptionRequest();
-$body->setSubscription(new Models\Subscription());
-$body->getSubscription()->setPriceOverrideMoney(new Models\Money());
-$body->getSubscription()->getPriceOverrideMoney()->setAmount(2000);
-$body->getSubscription()->getPriceOverrideMoney()->setCurrency(Models\Currency::USD);
-$body->getSubscription()->setVersion(1594155459464);
 
-$apiResponse = $subscriptionsApi->updateSubscription($subscriptionId, $body);
+$body = UpdateSubscriptionRequestBuilder::init()
+    ->subscription(
+        SubscriptionBuilder::init()->build()
+    )->build();
+
+$apiResponse = $subscriptionsApi->updateSubscription(
+    $subscriptionId,
+    $body
+);
 
 if ($apiResponse->isSuccess()) {
     $updateSubscriptionResponse = $apiResponse->getResult();
@@ -215,9 +240,9 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 
 
@@ -238,15 +263,19 @@ function deleteSubscriptionAction(string $subscriptionId, string $actionId): Api
 
 ## Response Type
 
-[`DeleteSubscriptionActionResponse`](../../doc/models/delete-subscription-action-response.md)
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`DeleteSubscriptionActionResponse`](../../doc/models/delete-subscription-action-response.md).
 
 ## Example Usage
 
 ```php
 $subscriptionId = 'subscription_id0';
+
 $actionId = 'action_id6';
 
-$apiResponse = $subscriptionsApi->deleteSubscriptionAction($subscriptionId, $actionId);
+$apiResponse = $subscriptionsApi->deleteSubscriptionAction(
+    $subscriptionId,
+    $actionId
+);
 
 if ($apiResponse->isSuccess()) {
     $deleteSubscriptionActionResponse = $apiResponse->getResult();
@@ -254,17 +283,17 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 
 
 # Cancel Subscription
 
-Schedules a `CANCEL` action to cancel an active subscription
-by setting the `canceled_date` field to the end of the active billing period
-and changing the subscription status from ACTIVE to CANCELED after this date.
+Schedules a `CANCEL` action to cancel an active subscription. This
+sets the `canceled_date` field to the end of the active billing period. After this date,
+the subscription status changes from ACTIVE to CANCELED.
 
 ```php
 function cancelSubscription(string $subscriptionId): ApiResponse
@@ -278,7 +307,7 @@ function cancelSubscription(string $subscriptionId): ApiResponse
 
 ## Response Type
 
-[`CancelSubscriptionResponse`](../../doc/models/cancel-subscription-response.md)
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`CancelSubscriptionResponse`](../../doc/models/cancel-subscription-response.md).
 
 ## Example Usage
 
@@ -293,15 +322,15 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 
 
 # List Subscription Events
 
-Lists all events for a specific subscription.
+Lists all [events](https://developer.squareup.com/docs/subscriptions-api/actions-events) for a specific subscription.
 
 ```php
 function listSubscriptionEvents(string $subscriptionId, ?string $cursor = null, ?int $limit = null): ApiResponse
@@ -312,12 +341,12 @@ function listSubscriptionEvents(string $subscriptionId, ?string $cursor = null, 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscriptionId` | `string` | Template, Required | The ID of the subscription to retrieve the events for. |
-| `cursor` | `?string` | Query, Optional | When the total number of resulting subscription events exceeds the limit of a paged response,<br>specify the cursor returned from a preceding response here to fetch the next set of results.<br>If the cursor is unset, the response contains the last page of the results.<br><br>For more information, see [Pagination](https://developer.squareup.com/docs/working-with-apis/pagination). |
+| `cursor` | `?string` | Query, Optional | When the total number of resulting subscription events exceeds the limit of a paged response,<br>specify the cursor returned from a preceding response here to fetch the next set of results.<br>If the cursor is unset, the response contains the last page of the results.<br><br>For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination). |
 | `limit` | `?int` | Query, Optional | The upper limit on the number of subscription events to return<br>in a paged response. |
 
 ## Response Type
 
-[`ListSubscriptionEventsResponse`](../../doc/models/list-subscription-events-response.md)
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`ListSubscriptionEventsResponse`](../../doc/models/list-subscription-events-response.md).
 
 ## Example Usage
 
@@ -332,9 +361,9 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 
 
@@ -355,15 +384,19 @@ function pauseSubscription(string $subscriptionId, PauseSubscriptionRequest $bod
 
 ## Response Type
 
-[`PauseSubscriptionResponse`](../../doc/models/pause-subscription-response.md)
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`PauseSubscriptionResponse`](../../doc/models/pause-subscription-response.md).
 
 ## Example Usage
 
 ```php
 $subscriptionId = 'subscription_id0';
-$body = new Models\PauseSubscriptionRequest();
 
-$apiResponse = $subscriptionsApi->pauseSubscription($subscriptionId, $body);
+$body = PauseSubscriptionRequestBuilder::init()->build();
+
+$apiResponse = $subscriptionsApi->pauseSubscription(
+    $subscriptionId,
+    $body
+);
 
 if ($apiResponse->isSuccess()) {
     $pauseSubscriptionResponse = $apiResponse->getResult();
@@ -371,9 +404,9 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 
 
@@ -394,15 +427,19 @@ function resumeSubscription(string $subscriptionId, ResumeSubscriptionRequest $b
 
 ## Response Type
 
-[`ResumeSubscriptionResponse`](../../doc/models/resume-subscription-response.md)
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`ResumeSubscriptionResponse`](../../doc/models/resume-subscription-response.md).
 
 ## Example Usage
 
 ```php
 $subscriptionId = 'subscription_id0';
-$body = new Models\ResumeSubscriptionRequest();
 
-$apiResponse = $subscriptionsApi->resumeSubscription($subscriptionId, $body);
+$body = ResumeSubscriptionRequestBuilder::init()->build();
+
+$apiResponse = $subscriptionsApi->resumeSubscription(
+    $subscriptionId,
+    $body
+);
 
 if ($apiResponse->isSuccess()) {
     $resumeSubscriptionResponse = $apiResponse->getResult();
@@ -410,15 +447,16 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 
 
 # Swap Plan
 
-Schedules a `SWAP_PLAN` action to swap a subscription plan in an existing subscription.
+Schedules a `SWAP_PLAN` action to swap a subscription plan variation in an existing subscription.
+For more information, see [Swap Subscription Plan Variations](https://developer.squareup.com/docs/subscriptions-api/swap-plan-variations).
 
 ```php
 function swapPlan(string $subscriptionId, SwapPlanRequest $body): ApiResponse
@@ -433,18 +471,19 @@ function swapPlan(string $subscriptionId, SwapPlanRequest $body): ApiResponse
 
 ## Response Type
 
-[`SwapPlanResponse`](../../doc/models/swap-plan-response.md)
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`SwapPlanResponse`](../../doc/models/swap-plan-response.md).
 
 ## Example Usage
 
 ```php
 $subscriptionId = 'subscription_id0';
-$body_newPlanId = null;
-$body = new Models\SwapPlanRequest(
-    $body_newPlanId
-);
 
-$apiResponse = $subscriptionsApi->swapPlan($subscriptionId, $body);
+$body = SwapPlanRequestBuilder::init()->build();
+
+$apiResponse = $subscriptionsApi->swapPlan(
+    $subscriptionId,
+    $body
+);
 
 if ($apiResponse->isSuccess()) {
     $swapPlanResponse = $apiResponse->getResult();
@@ -452,8 +491,8 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 

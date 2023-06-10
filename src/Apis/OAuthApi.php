@@ -8,7 +8,6 @@ use Core\Request\Parameters\BodyParam;
 use Core\Request\Parameters\HeaderParam;
 use Core\Request\Parameters\TemplateParam;
 use CoreInterfaces\Core\Request\RequestMethod;
-use Square\Exceptions\ApiException;
 use Square\Http\ApiResponse;
 use Square\Models\ObtainTokenRequest;
 use Square\Models\ObtainTokenResponse;
@@ -39,20 +38,18 @@ class OAuthApi extends BaseApi
      * Authorization: Client APPLICATION_SECRET
      * ```
      *
-     * Replace `APPLICATION_SECRET` with the application secret on the Credentials
+     * Replace `APPLICATION_SECRET` with the application secret on the **Credentials**
      * page in the [Developer Dashboard](https://developer.squareup.com/apps).
      *
      * @deprecated
      *
-     * @param string $clientId Your application ID, which is available in the OAuth page in the
+     * @param string $clientId Your application ID, which is available on the **OAuth** page in the
      *        [Developer Dashboard](https://developer.squareup.com/apps).
      * @param RenewTokenRequest $body An object containing the fields to POST for the request. See
      *        the corresponding object definition for field details.
      * @param string $authorization Client APPLICATION_SECRET
      *
      * @return ApiResponse Response from the API call
-     *
-     * @throws ApiException Thrown if API call fails
      */
     public function renewToken(string $clientId, RenewTokenRequest $body, string $authorization): ApiResponse
     {
@@ -86,16 +83,14 @@ class OAuthApi extends BaseApi
      * Authorization: Client APPLICATION_SECRET
      * ```
      *
-     * Replace `APPLICATION_SECRET` with the application secret on the OAuth
-     * page for your application on the Developer Dashboard.
+     * Replace `APPLICATION_SECRET` with the application secret on the **OAuth**
+     * page for your application in the Developer Dashboard.
      *
      * @param RevokeTokenRequest $body An object containing the fields to POST for the request. See
      *        the corresponding object definition for field details.
      * @param string $authorization Client APPLICATION_SECRET
      *
      * @return ApiResponse Response from the API call
-     *
-     * @throws ApiException Thrown if API call fails
      */
     public function revokeToken(RevokeTokenRequest $body, string $authorization): ApiResponse
     {
@@ -119,7 +114,7 @@ class OAuthApi extends BaseApi
      * The `grant_type` parameter specifies the type of OAuth request. If
      * `grant_type` is `authorization_code`, you must include the authorization
      * code you received when a seller granted you authorization. If `grant_type`
-     * is `refresh_token`, you must provide a valid refresh token. If you are using
+     * is `refresh_token`, you must provide a valid refresh token. If you're using
      * an old version of the Square APIs (prior to March 13, 2019), `grant_type`
      * can be `migration_token` and you must provide a valid migration token.
      *
@@ -134,8 +129,6 @@ class OAuthApi extends BaseApi
      *        the corresponding object definition for field details.
      *
      * @return ApiResponse Response from the API call
-     *
-     * @throws ApiException Thrown if API call fails
      */
     public function obtainToken(ObtainTokenRequest $body): ApiResponse
     {
@@ -171,8 +164,6 @@ class OAuthApi extends BaseApi
      * @param string $authorization Client APPLICATION_SECRET
      *
      * @return ApiResponse Response from the API call
-     *
-     * @throws ApiException Thrown if API call fails
      */
     public function retrieveTokenStatus(string $authorization): ApiResponse
     {

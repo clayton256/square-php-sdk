@@ -37,7 +37,7 @@ Represents a payment processed by the Square API.
 | `referenceId` | `?string` | Optional | An optional ID that associates the payment with an entity in<br>another system.<br>**Constraints**: *Maximum Length*: `40` | getReferenceId(): ?string | setReferenceId(?string referenceId): void |
 | `customerId` | `?string` | Optional | The ID of the customer associated with the payment. If the ID is<br>not provided in the `CreatePayment` request that was used to create the `Payment`,<br>Square may use information in the request<br>(such as the billing and shipping address, email address, and payment source)<br>to identify a matching customer profile in the Customer Directory.<br>If found, the profile ID is used. If a profile is not found, the<br>API attempts to create an<br>[instant profile](https://developer.squareup.com/docs/customers-api/what-it-does#instant-profiles).<br>If the API cannot create an<br>instant profile (either because the seller has disabled it or the<br>seller's region prevents creating it), this field remains unset. Note that<br>this process is asynchronous and it may take some time before a<br>customer ID is added to the payment.<br>**Constraints**: *Maximum Length*: `191` | getCustomerId(): ?string | setCustomerId(?string customerId): void |
 | `employeeId` | `?string` | Optional | __Deprecated__: Use `Payment.team_member_id` instead.<br><br>An optional ID of the employee associated with taking the payment.<br>**Constraints**: *Maximum Length*: `192` | getEmployeeId(): ?string | setEmployeeId(?string employeeId): void |
-| `teamMemberId` | `?string` | Optional | An optional ID of the [TeamMember](../../doc/models/team-member.md) associated with taking the payment.<br>**Constraints**: *Maximum Length*: `192` | getTeamMemberId(): ?string | setTeamMemberId(?string teamMemberId): void |
+| `teamMemberId` | `?string` | Optional | An optional ID of the [TeamMember](entity:TeamMember) associated with taking the payment.<br>**Constraints**: *Maximum Length*: `192` | getTeamMemberId(): ?string | setTeamMemberId(?string teamMemberId): void |
 | `refundIds` | `?(string[])` | Optional | A list of `refund_id`s identifying refunds for the payment. | getRefundIds(): ?array | setRefundIds(?array refundIds): void |
 | `riskEvaluation` | [`?RiskEvaluation`](../../doc/models/risk-evaluation.md) | Optional | Represents fraud risk information for the associated payment.<br><br>When you take a payment through Square's Payments API (using the `CreatePayment`<br>endpoint), Square evaluates it and assigns a risk level to the payment. Sellers<br>can use this information to determine the course of action (for example,<br>provide the goods/services or refund the payment). | getRiskEvaluation(): ?RiskEvaluation | setRiskEvaluation(?RiskEvaluation riskEvaluation): void |
 | `buyerEmailAddress` | `?string` | Optional | The buyer's email address.<br>**Constraints**: *Maximum Length*: `255` | getBuyerEmailAddress(): ?string | setBuyerEmailAddress(?string buyerEmailAddress): void |
@@ -56,25 +56,17 @@ Represents a payment processed by the Square API.
 
 ```json
 {
-  "amount_money": null,
-  "tip_money": null,
-  "total_money": null,
-  "app_fee_money": null,
-  "approved_money": null,
-  "refunded_money": null,
-  "delay_action": null,
-  "card_details": null,
-  "cash_details": null,
-  "bank_account_details": null,
-  "external_details": null,
-  "wallet_details": null,
-  "buy_now_pay_later_details": null,
-  "risk_evaluation": null,
-  "billing_address": null,
-  "shipping_address": null,
-  "device_details": null,
-  "application_details": null,
-  "version_token": null
+  "id": "id0",
+  "created_at": "created_at2",
+  "updated_at": "updated_at4",
+  "amount_money": {
+    "amount": 186,
+    "currency": "NGN"
+  },
+  "tip_money": {
+    "amount": 190,
+    "currency": "CHE"
+  }
 }
 ```
 

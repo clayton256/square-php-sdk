@@ -39,7 +39,7 @@ function listDeviceCodes(
 
 ## Response Type
 
-[`ListDeviceCodesResponse`](../../doc/models/list-device-codes-response.md)
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`ListDeviceCodesResponse`](../../doc/models/list-device-codes-response.md).
 
 ## Example Usage
 
@@ -52,9 +52,9 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 
 
@@ -75,19 +75,18 @@ function createDeviceCode(CreateDeviceCodeRequest $body): ApiResponse
 
 ## Response Type
 
-[`CreateDeviceCodeResponse`](../../doc/models/create-device-code-response.md)
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`CreateDeviceCodeResponse`](../../doc/models/create-device-code-response.md).
 
 ## Example Usage
 
 ```php
-$body_idempotencyKey = '01bb00a6-0c86-4770-94ed-f5fca973cd56';
-$body_deviceCode = new Models\DeviceCode();
-$body_deviceCode->setName('Counter 1');
-$body_deviceCode->setLocationId('B5E4484SHHNYH');
-$body = new Models\CreateDeviceCodeRequest(
-    $body_idempotencyKey,
-    $body_deviceCode
-);
+$body = CreateDeviceCodeRequestBuilder::init(
+    '01bb00a6-0c86-4770-94ed-f5fca973cd56',
+    DeviceCodeBuilder::init()
+        ->name('Counter 1')
+        ->locationId('B5E4484SHHNYH')
+        ->build()
+)->build();
 
 $apiResponse = $devicesApi->createDeviceCode($body);
 
@@ -97,9 +96,9 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 
 
@@ -119,7 +118,7 @@ function getDeviceCode(string $id): ApiResponse
 
 ## Response Type
 
-[`GetDeviceCodeResponse`](../../doc/models/get-device-code-response.md)
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`GetDeviceCodeResponse`](../../doc/models/get-device-code-response.md).
 
 ## Example Usage
 
@@ -134,8 +133,8 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 

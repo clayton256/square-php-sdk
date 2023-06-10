@@ -24,13 +24,21 @@ used by Square's servers to apply each filter property specified.
 
 ```json
 {
-  "location_ids": null,
-  "employee_ids": null,
-  "status": null,
-  "start": null,
-  "end": null,
-  "workday": null,
-  "team_member_ids": null
+  "location_ids": [
+    "location_ids0"
+  ],
+  "employee_ids": [
+    "employee_ids5"
+  ],
+  "status": "OPEN",
+  "start": {
+    "start_at": "start_at6",
+    "end_at": "end_at6"
+  },
+  "end": {
+    "start_at": "start_at0",
+    "end_at": "end_at2"
+  }
 }
 ```
 

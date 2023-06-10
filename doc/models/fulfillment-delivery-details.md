@@ -39,23 +39,23 @@ Describes delivery details of an order fulfillment.
 
 ```json
 {
-  "recipient": null,
-  "schedule_type": null,
-  "deliver_at": null,
-  "prep_time_duration": null,
-  "delivery_window_duration": null,
-  "note": null,
-  "completed_at": null,
-  "cancel_reason": null,
-  "courier_pickup_at": null,
-  "courier_pickup_window_duration": null,
-  "is_no_contact_delivery": null,
-  "dropoff_notes": null,
-  "courier_provider_name": null,
-  "courier_support_phone_number": null,
-  "square_delivery_id": null,
-  "external_delivery_id": null,
-  "managed_delivery": null
+  "recipient": {
+    "customer_id": "customer_id6",
+    "display_name": "display_name8",
+    "email_address": "email_address4",
+    "phone_number": "phone_number4",
+    "address": {
+      "address_line_1": "address_line_14",
+      "address_line_2": "address_line_24",
+      "address_line_3": "address_line_30",
+      "locality": "locality4",
+      "sublocality": "sublocality4"
+    }
+  },
+  "schedule_type": "SCHEDULED",
+  "placed_at": "placed_at0",
+  "deliver_at": "deliver_at8",
+  "prep_time_duration": "prep_time_duration2"
 }
 ```
 

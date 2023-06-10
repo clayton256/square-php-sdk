@@ -16,8 +16,33 @@
 
 ```json
 {
-  "employee": null,
-  "errors": null
+  "employee": {
+    "id": "id8",
+    "first_name": "first_name8",
+    "last_name": "last_name6",
+    "email": "email8",
+    "phone_number": "phone_number6"
+  },
+  "errors": [
+    {
+      "category": "AUTHENTICATION_ERROR",
+      "code": "REFUND_ALREADY_PENDING",
+      "detail": "detail1",
+      "field": "field9"
+    },
+    {
+      "category": "INVALID_REQUEST_ERROR",
+      "code": "PAYMENT_NOT_REFUNDABLE",
+      "detail": "detail2",
+      "field": "field0"
+    },
+    {
+      "category": "RATE_LIMIT_ERROR",
+      "code": "REFUND_DECLINED",
+      "detail": "detail3",
+      "field": "field1"
+    }
+  ]
 }
 ```
 

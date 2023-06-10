@@ -15,7 +15,7 @@ Either `errors` or `refunds` is present in a given response (never both).
 |  --- | --- | --- | --- | --- | --- |
 | `errors` | [`?(Error[])`](../../doc/models/error.md) | Optional | Information about errors encountered during the request. | getErrors(): ?array | setErrors(?array errors): void |
 | `refunds` | [`?(PaymentRefund[])`](../../doc/models/payment-refund.md) | Optional | The list of requested refunds. | getRefunds(): ?array | setRefunds(?array refunds): void |
-| `cursor` | `?string` | Optional | The pagination cursor to be used in a subsequent request. If empty,<br>this is the final response.<br><br>For more information, see [Pagination](https://developer.squareup.com/docs/basics/api101/pagination). | getCursor(): ?string | setCursor(?string cursor): void |
+| `cursor` | `?string` | Optional | The pagination cursor to be used in a subsequent request. If empty,<br>this is the final response.<br><br>For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination). | getCursor(): ?string | setCursor(?string cursor): void |
 
 ## Example (as JSON)
 
@@ -45,7 +45,41 @@ Either `errors` or `refunds` is present in a given response (never both).
       ],
       "reason": "Example Refund",
       "status": "COMPLETED",
-      "updated_at": "2021-10-13T20:00:03.497Z"
+      "updated_at": "2021-10-13T20:00:03.497Z",
+      "unlinked": false,
+      "destination_type": "destination_type8",
+      "destination_details": {
+        "card_details": {
+          "card": {
+            "id": "id2",
+            "card_brand": "JCB",
+            "last_4": "last_44",
+            "exp_month": 142,
+            "exp_year": 154
+          },
+          "entry_method": "entry_method4"
+        }
+      }
+    }
+  ],
+  "errors": [
+    {
+      "category": "AUTHENTICATION_ERROR",
+      "code": "REFUND_ALREADY_PENDING",
+      "detail": "detail1",
+      "field": "field9"
+    },
+    {
+      "category": "INVALID_REQUEST_ERROR",
+      "code": "PAYMENT_NOT_REFUNDABLE",
+      "detail": "detail2",
+      "field": "field0"
+    },
+    {
+      "category": "RATE_LIMIT_ERROR",
+      "code": "REFUND_DECLINED",
+      "detail": "detail3",
+      "field": "field1"
     }
   ]
 }

@@ -28,7 +28,7 @@ payment processing workflow hosted on connect.squareup.com.
 
 NOTE: The Checkout API has been updated with new features.
 For more information, see [Checkout API highlights](https://developer.squareup.com/docs/checkout-api#checkout-api-highlights).
-We recommend that you use the new [CreatePaymentLink](../../doc/apis/checkout.md#create-payment-link) 
+We recommend that you use the new [CreatePaymentLink](api-endpoint:Checkout-CreatePaymentLink) 
 endpoint in place of this previously released endpoint.
 
 ```php
@@ -44,117 +44,136 @@ function createCheckout(string $locationId, CreateCheckoutRequest $body): ApiRes
 
 ## Response Type
 
-[`CreateCheckoutResponse`](../../doc/models/create-checkout-response.md)
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`CreateCheckoutResponse`](../../doc/models/create-checkout-response.md).
 
 ## Example Usage
 
 ```php
 $locationId = 'location_id4';
-$body_idempotencyKey = '86ae1696-b1e3-4328-af6d-f1e04d947ad6';
-$body_order = new Models\CreateOrderRequest();
-$body_order_order_locationId = 'location_id';
-$body_order->setOrder(new Models\Order(
-    $body_order_order_locationId
-));
-$body_order->getOrder()->setReferenceId('reference_id');
-$body_order->getOrder()->setCustomerId('customer_id');
-$body_order_order_lineItems = [];
 
-$body_order_order_lineItems_0_quantity = '2';
-$body_order_order_lineItems[0] = new Models\OrderLineItem(
-    $body_order_order_lineItems_0_quantity
+$body = CreateCheckoutRequestBuilder::init(
+    '86ae1696-b1e3-4328-af6d-f1e04d947ad6',
+    CreateOrderRequestBuilder::init()
+        ->order(
+            OrderBuilder::init(
+                'location_id'
+            )
+                ->referenceId('reference_id')
+                ->customerId('customer_id')
+                ->lineItems(
+                    [
+                        OrderLineItemBuilder::init(
+                            '2'
+                        )
+                            ->name('Printed T Shirt')
+                            ->appliedTaxes(
+                                [
+                                    OrderLineItemAppliedTaxBuilder::init(
+                                        '38ze1696-z1e3-5628-af6d-f1e04d947fg3'
+                                    )->build()
+                                ]
+                            )
+                            ->appliedDiscounts(
+                                [
+                                    OrderLineItemAppliedDiscountBuilder::init(
+                                        '56ae1696-z1e3-9328-af6d-f1e04d947gd4'
+                                    )->build()
+                                ]
+                            )
+                            ->basePriceMoney(
+                                MoneyBuilder::init()
+                                    ->amount(1500)
+                                    ->currency(Currency::USD)
+                                    ->build()
+                            )
+                            ->build(),
+                        OrderLineItemBuilder::init(
+                            '1'
+                        )
+                            ->name('Slim Jeans')
+                            ->basePriceMoney(
+                                MoneyBuilder::init()
+                                    ->amount(2500)
+                                    ->currency(Currency::USD)
+                                    ->build()
+                            )
+                            ->build(),
+                        OrderLineItemBuilder::init(
+                            '3'
+                        )
+                            ->name('Woven Sweater')
+                            ->basePriceMoney(
+                                MoneyBuilder::init()
+                                    ->amount(3500)
+                                    ->currency(Currency::USD)
+                                    ->build()
+                            )
+                            ->build()
+                    ]
+                )
+                ->taxes(
+                    [
+                        OrderLineItemTaxBuilder::init()
+                            ->uid('38ze1696-z1e3-5628-af6d-f1e04d947fg3')
+                            ->type(OrderLineItemTaxType::INCLUSIVE)
+                            ->percentage('7.75')
+                            ->scope(OrderLineItemTaxScope::LINE_ITEM)
+                            ->build()
+                    ]
+                )
+                ->discounts(
+                    [
+                        OrderLineItemDiscountBuilder::init()
+                            ->uid('56ae1696-z1e3-9328-af6d-f1e04d947gd4')
+                            ->type(OrderLineItemDiscountType::FIXED_AMOUNT)
+                            ->amountMoney(
+                                MoneyBuilder::init()
+                                    ->amount(100)
+                                    ->currency(Currency::USD)
+                                    ->build()
+                            )
+                            ->scope(OrderLineItemDiscountScope::LINE_ITEM)
+                            ->build()
+                    ]
+                )
+                ->build()
+        )
+        ->idempotencyKey('12ae1696-z1e3-4328-af6d-f1e04d947gd4')
+        ->build()
+)
+    ->askForShippingAddress(true)
+    ->merchantSupportEmail('merchant+support@website.com')
+    ->prePopulateBuyerEmail('example@email.com')
+    ->prePopulateShippingAddress(
+        AddressBuilder::init()
+            ->addressLine1('1455 Market St.')
+            ->addressLine2('Suite 600')
+            ->locality('San Francisco')
+            ->administrativeDistrictLevel1('CA')
+            ->postalCode('94103')
+            ->country(Country::US)
+            ->firstName('Jane')
+            ->lastName('Doe')
+            ->build()
+    )
+    ->redirectUrl('https://merchant.website.com/order-confirm')
+    ->additionalRecipients(
+        [
+            ChargeRequestAdditionalRecipientBuilder::init(
+                '057P5VYJ4A5X1',
+                'Application fees',
+                MoneyBuilder::init()
+                    ->amount(60)
+                    ->currency(Currency::USD)
+                    ->build()
+            )->build()
+        ]
+    )->build();
+
+$apiResponse = $checkoutApi->createCheckout(
+    $locationId,
+    $body
 );
-$body_order_order_lineItems[0]->setName('Printed T Shirt');
-$body_order_order_lineItems_0_appliedTaxes = [];
-
-$body_order_order_lineItems_0_appliedTaxes_0_taxUid = '38ze1696-z1e3-5628-af6d-f1e04d947fg3';
-$body_order_order_lineItems_0_appliedTaxes[0] = new Models\OrderLineItemAppliedTax(
-    $body_order_order_lineItems_0_appliedTaxes_0_taxUid
-);
-$body_order_order_lineItems[0]->setAppliedTaxes($body_order_order_lineItems_0_appliedTaxes);
-
-$body_order_order_lineItems_0_appliedDiscounts = [];
-
-$body_order_order_lineItems_0_appliedDiscounts_0_discountUid = '56ae1696-z1e3-9328-af6d-f1e04d947gd4';
-$body_order_order_lineItems_0_appliedDiscounts[0] = new Models\OrderLineItemAppliedDiscount(
-    $body_order_order_lineItems_0_appliedDiscounts_0_discountUid
-);
-$body_order_order_lineItems[0]->setAppliedDiscounts($body_order_order_lineItems_0_appliedDiscounts);
-
-$body_order_order_lineItems[0]->setBasePriceMoney(new Models\Money());
-$body_order_order_lineItems[0]->getBasePriceMoney()->setAmount(1500);
-$body_order_order_lineItems[0]->getBasePriceMoney()->setCurrency(Models\Currency::USD);
-
-$body_order_order_lineItems_1_quantity = '1';
-$body_order_order_lineItems[1] = new Models\OrderLineItem(
-    $body_order_order_lineItems_1_quantity
-);
-$body_order_order_lineItems[1]->setName('Slim Jeans');
-$body_order_order_lineItems[1]->setBasePriceMoney(new Models\Money());
-$body_order_order_lineItems[1]->getBasePriceMoney()->setAmount(2500);
-$body_order_order_lineItems[1]->getBasePriceMoney()->setCurrency(Models\Currency::USD);
-
-$body_order_order_lineItems_2_quantity = '3';
-$body_order_order_lineItems[2] = new Models\OrderLineItem(
-    $body_order_order_lineItems_2_quantity
-);
-$body_order_order_lineItems[2]->setName('Woven Sweater');
-$body_order_order_lineItems[2]->setBasePriceMoney(new Models\Money());
-$body_order_order_lineItems[2]->getBasePriceMoney()->setAmount(3500);
-$body_order_order_lineItems[2]->getBasePriceMoney()->setCurrency(Models\Currency::USD);
-$body_order->getOrder()->setLineItems($body_order_order_lineItems);
-
-$body_order_order_taxes = [];
-
-$body_order_order_taxes[0] = new Models\OrderLineItemTax();
-$body_order_order_taxes[0]->setUid('38ze1696-z1e3-5628-af6d-f1e04d947fg3');
-$body_order_order_taxes[0]->setType(Models\OrderLineItemTaxType::INCLUSIVE);
-$body_order_order_taxes[0]->setPercentage('7.75');
-$body_order_order_taxes[0]->setScope(Models\OrderLineItemTaxScope::LINE_ITEM);
-$body_order->getOrder()->setTaxes($body_order_order_taxes);
-
-$body_order_order_discounts = [];
-
-$body_order_order_discounts[0] = new Models\OrderLineItemDiscount();
-$body_order_order_discounts[0]->setUid('56ae1696-z1e3-9328-af6d-f1e04d947gd4');
-$body_order_order_discounts[0]->setType(Models\OrderLineItemDiscountType::FIXED_AMOUNT);
-$body_order_order_discounts[0]->setAmountMoney(new Models\Money());
-$body_order_order_discounts[0]->getAmountMoney()->setAmount(100);
-$body_order_order_discounts[0]->getAmountMoney()->setCurrency(Models\Currency::USD);
-$body_order_order_discounts[0]->setScope(Models\OrderLineItemDiscountScope::LINE_ITEM);
-$body_order->getOrder()->setDiscounts($body_order_order_discounts);
-
-$body_order->setIdempotencyKey('12ae1696-z1e3-4328-af6d-f1e04d947gd4');
-$body = new Models\CreateCheckoutRequest(
-    $body_idempotencyKey,
-    $body_order
-);
-$body->setAskForShippingAddress(true);
-$body->setMerchantSupportEmail('merchant+support@website.com');
-$body->setPrePopulateBuyerEmail('example@email.com');
-$body->setPrePopulateShippingAddress(new Models\Address());
-$body->getPrePopulateShippingAddress()->setAddressLine1('1455 Market St.');
-$body->getPrePopulateShippingAddress()->setAddressLine2('Suite 600');
-$body->getPrePopulateShippingAddress()->setLocality('San Francisco');
-$body->getPrePopulateShippingAddress()->setAdministrativeDistrictLevel1('CA');
-$body->getPrePopulateShippingAddress()->setPostalCode('94103');
-$body->getPrePopulateShippingAddress()->setCountry(Models\Country::US);
-$body->getPrePopulateShippingAddress()->setFirstName('Jane');
-$body->getPrePopulateShippingAddress()->setLastName('Doe');
-$body->setRedirectUrl('https://merchant.website.com/order-confirm');
-$body_additionalRecipients = [];
-
-$body_additionalRecipients_0_locationId = '057P5VYJ4A5X1';
-$body_additionalRecipients_0_description = 'Application fees';
-$body_additionalRecipients[0] = new Models\ChargeRequestAdditionalRecipient(
-    $body_additionalRecipients_0_locationId,
-    $body_additionalRecipients_0_description,
-    $body_additionalRecipients_0_amountMoney
-);
-$body->setAdditionalRecipients($body_additionalRecipients);
-
-
-$apiResponse = $checkoutApi->createCheckout($locationId, $body);
 
 if ($apiResponse->isSuccess()) {
     $createCheckoutResponse = $apiResponse->getResult();
@@ -162,9 +181,9 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 
 
@@ -185,7 +204,7 @@ function listPaymentLinks(?string $cursor = null, ?int $limit = null): ApiRespon
 
 ## Response Type
 
-[`ListPaymentLinksResponse`](../../doc/models/list-payment-links-response.md)
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`ListPaymentLinksResponse`](../../doc/models/list-payment-links-response.md).
 
 ## Example Usage
 
@@ -198,9 +217,9 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 
 
@@ -220,23 +239,23 @@ function createPaymentLink(CreatePaymentLinkRequest $body): ApiResponse
 
 ## Response Type
 
-[`CreatePaymentLinkResponse`](../../doc/models/create-payment-link-response.md)
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`CreatePaymentLinkResponse`](../../doc/models/create-payment-link-response.md).
 
 ## Example Usage
 
 ```php
-$body = new Models\CreatePaymentLinkRequest();
-$body->setIdempotencyKey('cd9e25dc-d9f2-4430-aedb-61605070e95f');
-$body_quickPay_name = 'Auto Detailing';
-$body_quickPay_priceMoney = new Models\Money();
-$body_quickPay_priceMoney->setAmount(10000);
-$body_quickPay_priceMoney->setCurrency(Models\Currency::USD);
-$body_quickPay_locationId = 'A9Y43N9ABXZBP';
-$body->setQuickPay(new Models\QuickPay(
-    $body_quickPay_name,
-    $body_quickPay_priceMoney,
-    $body_quickPay_locationId
-));
+$body = CreatePaymentLinkRequestBuilder::init()
+    ->idempotencyKey('cd9e25dc-d9f2-4430-aedb-61605070e95f')
+    ->quickPay(
+        QuickPayBuilder::init(
+            'Auto Detailing',
+            MoneyBuilder::init()
+                ->amount(10000)
+                ->currency(Currency::USD)
+                ->build(),
+            'A9Y43N9ABXZBP'
+        )->build()
+    )->build();
 
 $apiResponse = $checkoutApi->createPaymentLink($body);
 
@@ -246,9 +265,9 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 
 
@@ -268,7 +287,7 @@ function deletePaymentLink(string $id): ApiResponse
 
 ## Response Type
 
-[`DeletePaymentLinkResponse`](../../doc/models/delete-payment-link-response.md)
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`DeletePaymentLinkResponse`](../../doc/models/delete-payment-link-response.md).
 
 ## Example Usage
 
@@ -283,9 +302,9 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 
 
@@ -305,7 +324,7 @@ function retrievePaymentLink(string $id): ApiResponse
 
 ## Response Type
 
-[`RetrievePaymentLinkResponse`](../../doc/models/retrieve-payment-link-response.md)
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`RetrievePaymentLinkResponse`](../../doc/models/retrieve-payment-link-response.md).
 
 ## Example Usage
 
@@ -320,9 +339,9 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 
 
@@ -345,23 +364,29 @@ function updatePaymentLink(string $id, UpdatePaymentLinkRequest $body): ApiRespo
 
 ## Response Type
 
-[`UpdatePaymentLinkResponse`](../../doc/models/update-payment-link-response.md)
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`UpdatePaymentLinkResponse`](../../doc/models/update-payment-link-response.md).
 
 ## Example Usage
 
 ```php
 $id = 'id0';
-$body_paymentLink_version = 1;
-$body_paymentLink = new Models\PaymentLink(
-    $body_paymentLink_version
-);
-$body_paymentLink->setCheckoutOptions(new Models\CheckoutOptions());
-$body_paymentLink->getCheckoutOptions()->setAskForShippingAddress(true);
-$body = new Models\UpdatePaymentLinkRequest(
-    $body_paymentLink
-);
 
-$apiResponse = $checkoutApi->updatePaymentLink($id, $body);
+$body = UpdatePaymentLinkRequestBuilder::init(
+    PaymentLinkBuilder::init(
+        1
+    )
+        ->checkoutOptions(
+            CheckoutOptionsBuilder::init()
+                ->askForShippingAddress(true)
+                ->build()
+        )
+        ->build()
+)->build();
+
+$apiResponse = $checkoutApi->updatePaymentLink(
+    $id,
+    $body
+);
 
 if ($apiResponse->isSuccess()) {
     $updatePaymentLinkResponse = $apiResponse->getResult();
@@ -369,8 +394,8 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 

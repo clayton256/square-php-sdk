@@ -13,7 +13,7 @@ Defines output parameters in a response from the
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `errors` | [`?(Error[])`](../../doc/models/error.md) | Optional | Errors encountered during the request. | getErrors(): ?array | setErrors(?array errors): void |
-| `subscription` | [`?Subscription`](../../doc/models/subscription.md) | Optional | Represents a subscription to a subscription plan by a subscriber.<br><br>For an overview of the `Subscription` type, see<br>[Subscription object](https://developer.squareup.com/docs/subscriptions-api/overview#subscription-object-overview). | getSubscription(): ?Subscription | setSubscription(?Subscription subscription): void |
+| `subscription` | [`?Subscription`](../../doc/models/subscription.md) | Optional | Represents a subscription purchased by a customer.<br><br>For more information, see<br>[Manage Subscriptions](https://developer.squareup.com/docs/subscriptions-api/manage-subscriptions). | getSubscription(): ?Subscription | setSubscription(?Subscription subscription): void |
 | `actions` | [`?(SubscriptionAction[])`](../../doc/models/subscription-action.md) | Optional | A list of `RESUME` actions created by the request and scheduled for the subscription. | getActions(): ?array | setActions(?array actions): void |
 
 ## Example (as JSON)
@@ -24,7 +24,16 @@ Defines output parameters in a response from the
     {
       "effective_date": "2022-01-01",
       "id": "18ff74f4-3da4-30c5-929f-7d6fca84f115",
-      "type": "RESUME"
+      "type": "RESUME",
+      "phases": [
+        {
+          "uid": "uid6",
+          "ordinal": 186,
+          "order_template_id": "order_template_id8",
+          "plan_phase_uid": "plan_phase_uid2"
+        }
+      ],
+      "new_plan_variation_id": "new_plan_variation_id9"
     }
   ],
   "subscription": {
@@ -42,8 +51,30 @@ Defines output parameters in a response from the
     },
     "status": "ACTIVE",
     "timezone": "America/Los_Angeles",
-    "version": 1594311617331
-  }
+    "version": 1594311617331,
+    "plan_variation_id": "plan_variation_id8",
+    "start_date": "start_date8"
+  },
+  "errors": [
+    {
+      "category": "AUTHENTICATION_ERROR",
+      "code": "REFUND_ALREADY_PENDING",
+      "detail": "detail1",
+      "field": "field9"
+    },
+    {
+      "category": "INVALID_REQUEST_ERROR",
+      "code": "PAYMENT_NOT_REFUNDABLE",
+      "detail": "detail2",
+      "field": "field0"
+    },
+    {
+      "category": "RATE_LIMIT_ERROR",
+      "code": "REFUND_DECLINED",
+      "detail": "detail3",
+      "field": "field1"
+    }
+  ]
 }
 ```
 

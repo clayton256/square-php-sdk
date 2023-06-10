@@ -27,13 +27,11 @@ A record representing an individual team member for a business.
 
 ```json
 {
-  "reference_id": null,
-  "status": null,
-  "given_name": null,
-  "family_name": null,
-  "email_address": null,
-  "phone_number": null,
-  "assigned_locations": null
+  "id": "id0",
+  "reference_id": "reference_id2",
+  "is_owner": false,
+  "status": "ACTIVE",
+  "given_name": "given_name2"
 }
 ```
 

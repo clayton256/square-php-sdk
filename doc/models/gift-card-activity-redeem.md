@@ -21,11 +21,12 @@ Represents details about a `REDEEM` [gift card activity type](../../doc/models/g
 ```json
 {
   "amount_money": {
-    "amount": null,
-    "currency": null
+    "amount": 186,
+    "currency": "NGN"
   },
-  "reference_id": null,
-  "status": null
+  "payment_id": "payment_id0",
+  "reference_id": "reference_id2",
+  "status": "CANCELED"
 }
 ```
 

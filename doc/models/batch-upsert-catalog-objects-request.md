@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `idempotencyKey` | `string` | Required | A value you specify that uniquely identifies this<br>request among all your requests. A common way to create<br>a valid idempotency key is to use a Universally unique<br>identifier (UUID).<br><br>If you're unsure whether a particular request was successful,<br>you can reattempt it with the same idempotency key without<br>worrying about creating duplicate objects.<br><br>See [Idempotency](https://developer.squareup.com/docs/basics/api101/idempotency) for more information.<br>**Constraints**: *Minimum Length*: `1` | getIdempotencyKey(): string | setIdempotencyKey(string idempotencyKey): void |
+| `idempotencyKey` | `string` | Required | A value you specify that uniquely identifies this<br>request among all your requests. A common way to create<br>a valid idempotency key is to use a Universally unique<br>identifier (UUID).<br><br>If you're unsure whether a particular request was successful,<br>you can reattempt it with the same idempotency key without<br>worrying about creating duplicate objects.<br><br>See [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency) for more information.<br>**Constraints**: *Minimum Length*: `1` | getIdempotencyKey(): string | setIdempotencyKey(string idempotencyKey): void |
 | `batches` | [`CatalogObjectBatch[]`](../../doc/models/catalog-object-batch.md) | Required | A batch of CatalogObjects to be inserted/updated atomically.<br>The objects within a batch will be inserted in an all-or-nothing fashion, i.e., if an error occurs<br>attempting to insert or update an object within a batch, the entire batch will be rejected. However, an error<br>in one batch will not affect other batches within the same request.<br><br>For each object, its `updated_at` field is ignored and replaced with a current [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates), and its<br>`is_deleted` field must not be set to `true`.<br><br>To modify an existing object, supply its ID. To create a new object, use an ID starting<br>with `#`. These IDs may be used to create relationships between an object and attributes of<br>other objects that reference it. For example, you can create a CatalogItem with<br>ID `#ABC` and a CatalogItemVariation with its `item_id` attribute set to<br>`#ABC` in order to associate the CatalogItemVariation with its parent<br>CatalogItem.<br><br>Any `#`-prefixed IDs are valid only within a single atomic batch, and will be replaced by server-generated IDs.<br><br>Each batch may contain up to 1,000 objects. The total number of objects across all batches for a single request<br>may not exceed 10,000. If either of these limits is violated, an error will be returned and no objects will<br>be inserted or updated. | getBatches(): array | setBatches(array batches): void |
 
 ## Example (as JSON)
@@ -46,7 +46,47 @@
             ]
           },
           "present_at_all_locations": true,
-          "type": "ITEM"
+          "type": "ITEM",
+          "updated_at": "updated_at0",
+          "version": 244,
+          "is_deleted": false,
+          "custom_attribute_values": {
+            "key0": {
+              "name": "name5",
+              "string_value": "string_value9",
+              "custom_attribute_definition_id": "custom_attribute_definition_id7",
+              "type": "BOOLEAN",
+              "number_value": "number_value5"
+            },
+            "key1": {
+              "name": "name6",
+              "string_value": "string_value0",
+              "custom_attribute_definition_id": "custom_attribute_definition_id6",
+              "type": "STRING",
+              "number_value": "number_value6"
+            },
+            "key2": {
+              "name": "name7",
+              "string_value": "string_value1",
+              "custom_attribute_definition_id": "custom_attribute_definition_id5",
+              "type": "SELECTION",
+              "number_value": "number_value7"
+            }
+          },
+          "catalog_v1_ids": [
+            {
+              "catalog_v1_id": "catalog_v1_id8",
+              "location_id": "location_id8"
+            },
+            {
+              "catalog_v1_id": "catalog_v1_id9",
+              "location_id": "location_id9"
+            },
+            {
+              "catalog_v1_id": "catalog_v1_id0",
+              "location_id": "location_id0"
+            }
+          ]
         },
         {
           "id": "#Coffee",
@@ -89,7 +129,32 @@
             ]
           },
           "present_at_all_locations": true,
-          "type": "ITEM"
+          "type": "ITEM",
+          "updated_at": "updated_at9",
+          "version": 245,
+          "is_deleted": true,
+          "custom_attribute_values": {
+            "key0": {
+              "name": "name4",
+              "string_value": "string_value8",
+              "custom_attribute_definition_id": "custom_attribute_definition_id8",
+              "type": "NUMBER",
+              "number_value": "number_value4"
+            },
+            "key1": {
+              "name": "name5",
+              "string_value": "string_value9",
+              "custom_attribute_definition_id": "custom_attribute_definition_id7",
+              "type": "BOOLEAN",
+              "number_value": "number_value5"
+            }
+          },
+          "catalog_v1_ids": [
+            {
+              "catalog_v1_id": "catalog_v1_id9",
+              "location_id": "location_id9"
+            }
+          ]
         },
         {
           "category_data": {
@@ -97,7 +162,29 @@
           },
           "id": "#Beverages",
           "present_at_all_locations": true,
-          "type": "CATEGORY"
+          "type": "CATEGORY",
+          "updated_at": "updated_at8",
+          "version": 246,
+          "is_deleted": false,
+          "custom_attribute_values": {
+            "key0": {
+              "name": "name3",
+              "string_value": "string_value7",
+              "custom_attribute_definition_id": "custom_attribute_definition_id9",
+              "type": "SELECTION",
+              "number_value": "number_value3"
+            }
+          },
+          "catalog_v1_ids": [
+            {
+              "catalog_v1_id": "catalog_v1_id0",
+              "location_id": "location_id0"
+            },
+            {
+              "catalog_v1_id": "catalog_v1_id1",
+              "location_id": "location_id1"
+            }
+          ]
         },
         {
           "id": "#SalesTax",
@@ -110,7 +197,47 @@
             "name": "Sales Tax",
             "percentage": "5.0"
           },
-          "type": "TAX"
+          "type": "TAX",
+          "updated_at": "updated_at7",
+          "version": 247,
+          "is_deleted": true,
+          "custom_attribute_values": {
+            "key0": {
+              "name": "name2",
+              "string_value": "string_value6",
+              "custom_attribute_definition_id": "custom_attribute_definition_id0",
+              "type": "STRING",
+              "number_value": "number_value2"
+            },
+            "key1": {
+              "name": "name3",
+              "string_value": "string_value7",
+              "custom_attribute_definition_id": "custom_attribute_definition_id9",
+              "type": "SELECTION",
+              "number_value": "number_value3"
+            },
+            "key2": {
+              "name": "name4",
+              "string_value": "string_value8",
+              "custom_attribute_definition_id": "custom_attribute_definition_id8",
+              "type": "NUMBER",
+              "number_value": "number_value4"
+            }
+          },
+          "catalog_v1_ids": [
+            {
+              "catalog_v1_id": "catalog_v1_id1",
+              "location_id": "location_id1"
+            },
+            {
+              "catalog_v1_id": "catalog_v1_id2",
+              "location_id": "location_id2"
+            },
+            {
+              "catalog_v1_id": "catalog_v1_id3",
+              "location_id": "location_id3"
+            }
+          ]
         }
       ]
     }

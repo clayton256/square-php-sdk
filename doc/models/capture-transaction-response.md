@@ -2,7 +2,7 @@
 # Capture Transaction Response
 
 Defines the fields that are included in the response body of
-a request to the [CaptureTransaction](../../doc/apis/transactions.md#capture-transaction) endpoint.
+a request to the [CaptureTransaction](api-endpoint:Transactions-CaptureTransaction) endpoint.
 
 ## Structure
 
@@ -17,6 +17,27 @@ a request to the [CaptureTransaction](../../doc/apis/transactions.md#capture-tra
 ## Example (as JSON)
 
 ```json
-{}
+{
+  "errors": [
+    {
+      "category": "AUTHENTICATION_ERROR",
+      "code": "REFUND_ALREADY_PENDING",
+      "detail": "detail1",
+      "field": "field9"
+    },
+    {
+      "category": "INVALID_REQUEST_ERROR",
+      "code": "PAYMENT_NOT_REFUNDABLE",
+      "detail": "detail2",
+      "field": "field0"
+    },
+    {
+      "category": "RATE_LIMIT_ERROR",
+      "code": "REFUND_DECLINED",
+      "detail": "detail3",
+      "field": "field1"
+    }
+  ]
+}
 ```
 

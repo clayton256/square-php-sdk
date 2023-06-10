@@ -5,7 +5,7 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `squareVersion` | `string` | Square Connect API versions<br>*Default*: `'2023-01-19'` |
+| `squareVersion` | `string` | Square Connect API versions<br>*Default*: `'2023-06-08'` |
 | `customUrl` | `string` | Sets the base URL requests are made to. Defaults to `https://connect.squareup.com`<br>*Default*: `'https://connect.squareup.com'` |
 | `environment` | `string` | The API environment. <br> **Default: `production`** |
 | `timeout` | `int` | Timeout for API calls in seconds.<br>*Default*: `60` |
@@ -24,9 +24,9 @@ The following parameters are configurable for the API Client:
 The API client can be initialized as follows:
 
 ```php
-$client = Square\SquareClientBuilder::init()
+$client = SquareClientBuilder::init()
     ->accessToken('AccessToken')
-    ->squareVersion('2023-01-19')
+    ->squareVersion('2023-06-08')
     ->environment('production')
     ->customUrl('https://connect.squareup.com')
     ->build();
@@ -47,14 +47,14 @@ API calls return an `ApiResponse` object that includes the following fields:
 
 require_once "vendor/autoload.php";
 
-$client = Square\SquareClientBuilder::init()
+use Square\SquareClientBuilder;
+
+$client = SquareClientBuilder::init()
     ->accessToken('AccessToken')
-    ->squareVersion('2023-01-19')
+    ->squareVersion('2023-06-08')
     ->build();
 
-$locationsApi = $client->getLocationsApi();
-
-$apiResponse = $locationsApi->listLocations();
+$apiResponse = $client->getLocationsApi()->listLocations();
 
 if ($apiResponse->isSuccess()) {
     $listLocationsResponse = $apiResponse->getResult();
@@ -62,9 +62,9 @@ if ($apiResponse->isSuccess()) {
     $errors = $apiResponse->getErrors();
 }
 
-// Get more response info...
-// $statusCode = $apiResponse->getStatusCode();
-// $headers = $apiResponse->getHeaders();
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
 ```
 
 ## Square Client
@@ -103,6 +103,7 @@ The gateway for the SDK. This class acts as a factory for the Apis and also hold
 | getTransactionsApi() | Gets TransactionsApi |
 | getLoyaltyApi() | Gets LoyaltyApi |
 | getMerchantsApi() | Gets MerchantsApi |
+| getMerchantCustomAttributesApi() | Gets MerchantCustomAttributesApi |
 | getOrdersApi() | Gets OrdersApi |
 | getOrderCustomAttributesApi() | Gets OrderCustomAttributesApi |
 | getPaymentsApi() | Gets PaymentsApi |

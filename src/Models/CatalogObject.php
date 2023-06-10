@@ -310,10 +310,10 @@ class CatalogObject implements \JsonSerializable
      * Returns Custom Attribute Values.
      * A map (key-value pairs) of application-defined custom attribute values. The value of a key-value
      * pair
-     * is a [CatalogCustomAttributeValue]($m/CatalogCustomAttributeValue) object. The key is the `key`
+     * is a [CatalogCustomAttributeValue](entity:CatalogCustomAttributeValue) object. The key is the `key`
      * attribute
-     * value defined in the associated
-     * [CatalogCustomAttributeDefinition]($m/CatalogCustomAttributeDefinition)
+     * value defined in the associated [CatalogCustomAttributeDefinition](entity:
+     * CatalogCustomAttributeDefinition)
      * object defined by the application making the request.
      *
      * If the `CatalogCustomAttributeDefinition` object is
@@ -346,10 +346,10 @@ class CatalogObject implements \JsonSerializable
      * Sets Custom Attribute Values.
      * A map (key-value pairs) of application-defined custom attribute values. The value of a key-value
      * pair
-     * is a [CatalogCustomAttributeValue]($m/CatalogCustomAttributeValue) object. The key is the `key`
+     * is a [CatalogCustomAttributeValue](entity:CatalogCustomAttributeValue) object. The key is the `key`
      * attribute
-     * value defined in the associated
-     * [CatalogCustomAttributeDefinition]($m/CatalogCustomAttributeDefinition)
+     * value defined in the associated [CatalogCustomAttributeDefinition](entity:
+     * CatalogCustomAttributeDefinition)
      * object defined by the application making the request.
      *
      * If the `CatalogCustomAttributeDefinition` object is
@@ -381,10 +381,10 @@ class CatalogObject implements \JsonSerializable
      * Unsets Custom Attribute Values.
      * A map (key-value pairs) of application-defined custom attribute values. The value of a key-value
      * pair
-     * is a [CatalogCustomAttributeValue]($m/CatalogCustomAttributeValue) object. The key is the `key`
+     * is a [CatalogCustomAttributeValue](entity:CatalogCustomAttributeValue) object. The key is the `key`
      * attribute
-     * value defined in the associated
-     * [CatalogCustomAttributeDefinition]($m/CatalogCustomAttributeDefinition)
+     * value defined in the associated [CatalogCustomAttributeDefinition](entity:
+     * CatalogCustomAttributeDefinition)
      * object defined by the application making the request.
      *
      * If the `CatalogCustomAttributeDefinition` object is
@@ -740,7 +740,8 @@ class CatalogObject implements \JsonSerializable
 
     /**
      * Returns Modifier Data.
-     * A modifier applicable to items at the time of sale.
+     * A modifier applicable to items at the time of sale. An example of a modifier is a Cheese add-on to a
+     * Burger item.
      */
     public function getModifierData(): ?CatalogModifier
     {
@@ -749,7 +750,8 @@ class CatalogObject implements \JsonSerializable
 
     /**
      * Sets Modifier Data.
-     * A modifier applicable to items at the time of sale.
+     * A modifier applicable to items at the time of sale. An example of a modifier is a Cheese add-on to a
+     * Burger item.
      *
      * @maps modifier_data
      */
@@ -882,9 +884,10 @@ class CatalogObject implements \JsonSerializable
 
     /**
      * Returns Subscription Plan Data.
-     * Describes a subscription plan. For more information, see
-     * [Set Up and Manage a Subscription Plan](https://developer.squareup.com/docs/subscriptions-api/setup-
-     * plan).
+     * Describes a subscription plan. A subscription plan represents what you want to sell in a
+     * subscription model, and includes references to each of the associated subscription plan variations.
+     * For more information, see [Subscription Plans and Variations](https://developer.squareup.
+     * com/docs/subscriptions-api/plans-and-variations).
      */
     public function getSubscriptionPlanData(): ?CatalogSubscriptionPlan
     {
@@ -893,9 +896,10 @@ class CatalogObject implements \JsonSerializable
 
     /**
      * Sets Subscription Plan Data.
-     * Describes a subscription plan. For more information, see
-     * [Set Up and Manage a Subscription Plan](https://developer.squareup.com/docs/subscriptions-api/setup-
-     * plan).
+     * Describes a subscription plan. A subscription plan represents what you want to sell in a
+     * subscription model, and includes references to each of the associated subscription plan variations.
+     * For more information, see [Subscription Plans and Variations](https://developer.squareup.
+     * com/docs/subscriptions-api/plans-and-variations).
      *
      * @maps subscription_plan_data
      */

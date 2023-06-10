@@ -22,13 +22,11 @@
 
 ```json
 {
-  "seller_id": null,
-  "booking_enabled": null,
-  "customer_timezone_choice": null,
-  "booking_policy": null,
-  "allow_user_cancel": null,
-  "business_appointment_settings": null,
-  "support_seller_level_writes": null
+  "seller_id": "seller_id8",
+  "created_at": "created_at2",
+  "booking_enabled": false,
+  "customer_timezone_choice": "BUSINESS_LOCATION_TIMEZONE",
+  "booking_policy": "ACCEPT_ALL"
 }
 ```
 
