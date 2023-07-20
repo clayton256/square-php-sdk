@@ -18,7 +18,7 @@ Represents a refund processed for a Square transaction.
 | `createdAt` | `?string` | Optional | The timestamp for when the refund was created, in RFC 3339 format.<br>**Constraints**: *Maximum Length*: `32` | getCreatedAt(): ?string | setCreatedAt(?string createdAt): void |
 | `reason` | `string` | Required | The reason for the refund being issued.<br>**Constraints**: *Maximum Length*: `192` | getReason(): string | setReason(string reason): void |
 | `amountMoney` | [`Money`](../../doc/models/money.md) | Required | Represents an amount of money. `Money` fields can be signed or unsigned.<br>Fields that do not explicitly define whether they are signed or unsigned are<br>considered unsigned and can only hold positive amounts. For signed fields, the<br>sign of the value indicates the purpose of the money transfer. See<br>[Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)<br>for more information. | getAmountMoney(): Money | setAmountMoney(Money amountMoney): void |
-| `status` | [`string (RefundStatus)`](../../doc/models/refund-status.md) | Required | Indicates a refund's current status. | getStatus(): string | setStatus(string status): void |
+| `status` | [`string(RefundStatus)`](../../doc/models/refund-status.md) | Required | Indicates a refund's current status. | getStatus(): string | setStatus(string status): void |
 | `processingFeeMoney` | [`?Money`](../../doc/models/money.md) | Optional | Represents an amount of money. `Money` fields can be signed or unsigned.<br>Fields that do not explicitly define whether they are signed or unsigned are<br>considered unsigned and can only hold positive amounts. For signed fields, the<br>sign of the value indicates the purpose of the money transfer. See<br>[Working with Monetary Amounts](https://developer.squareup.com/docs/build-basics/working-with-monetary-amounts)<br>for more information. | getProcessingFeeMoney(): ?Money | setProcessingFeeMoney(?Money processingFeeMoney): void |
 | `additionalRecipients` | [`?(AdditionalRecipient[])`](../../doc/models/additional-recipient.md) | Optional | Additional recipients (other than the merchant) receiving a portion of this refund.<br>For example, fees assessed on a refund of a purchase by a third party integration. | getAdditionalRecipients(): ?array | setAdditionalRecipients(?array additionalRecipients): void |
 
@@ -34,12 +34,12 @@ Represents a refund processed for a Square transaction.
   "reason": "reason4",
   "amount_money": {
     "amount": 186,
-    "currency": "NGN"
+    "currency": "TZS"
   },
   "status": "PENDING",
   "processing_fee_money": {
     "amount": 112,
-    "currency": "XBB"
+    "currency": "BBD"
   },
   "additional_recipients": [
     {
@@ -47,7 +47,7 @@ Represents a refund processed for a Square transaction.
       "description": "description9",
       "amount_money": {
         "amount": 83,
-        "currency": "ALL"
+        "currency": "ZAR"
       },
       "receivable_id": "receivable_id9"
     },
@@ -56,7 +56,7 @@ Represents a refund processed for a Square transaction.
       "description": "description0",
       "amount_money": {
         "amount": 84,
-        "currency": "AMD"
+        "currency": "ZMK"
       },
       "receivable_id": "receivable_id0"
     },
@@ -65,7 +65,7 @@ Represents a refund processed for a Square transaction.
       "description": "description1",
       "amount_money": {
         "amount": 85,
-        "currency": "ANG"
+        "currency": "ZMW"
       },
       "receivable_id": "receivable_id1"
     }

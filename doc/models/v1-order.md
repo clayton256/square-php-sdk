@@ -16,7 +16,7 @@ V1Order
 | `buyerEmail` | `?string` | Optional | The email address of the order's buyer. | getBuyerEmail(): ?string | setBuyerEmail(?string buyerEmail): void |
 | `recipientName` | `?string` | Optional | The name of the order's buyer. | getRecipientName(): ?string | setRecipientName(?string recipientName): void |
 | `recipientPhoneNumber` | `?string` | Optional | The phone number to use for the order's delivery. | getRecipientPhoneNumber(): ?string | setRecipientPhoneNumber(?string recipientPhoneNumber): void |
-| `state` | [`?string (V1OrderState)`](../../doc/models/v1-order-state.md) | Optional | - | getState(): ?string | setState(?string state): void |
+| `state` | [`?string(V1OrderState)`](../../doc/models/v1-order-state.md) | Optional | - | getState(): ?string | setState(?string state): void |
 | `shippingAddress` | [`?Address`](../../doc/models/address.md) | Optional | Represents a postal address in a country.<br>For more information, see [Working with Addresses](https://developer.squareup.com/docs/build-basics/working-with-addresses). | getShippingAddress(): ?Address | setShippingAddress(?Address shippingAddress): void |
 | `subtotalMoney` | [`?V1Money`](../../doc/models/v1-money.md) | Optional | - | getSubtotalMoney(): ?V1Money | setSubtotalMoney(?V1Money subtotalMoney): void |
 | `totalShippingMoney` | [`?V1Money`](../../doc/models/v1-money.md) | Optional | - | getTotalShippingMoney(): ?V1Money | setTotalShippingMoney(?V1Money totalShippingMoney): void |
@@ -43,20 +43,20 @@ V1Order
 {
   "errors": [
     {
-      "category": "AUTHENTICATION_ERROR",
-      "code": "REFUND_ALREADY_PENDING",
+      "category": "REFUND_ERROR",
+      "code": "MERCHANT_SUBSCRIPTION_NOT_FOUND",
       "detail": "detail1",
       "field": "field9"
     },
     {
-      "category": "INVALID_REQUEST_ERROR",
-      "code": "PAYMENT_NOT_REFUNDABLE",
+      "category": "MERCHANT_SUBSCRIPTION_ERROR",
+      "code": "BAD_REQUEST",
       "detail": "detail2",
       "field": "field0"
     },
     {
-      "category": "RATE_LIMIT_ERROR",
-      "code": "REFUND_DECLINED",
+      "category": "EXTERNAL_VENDOR_ERROR",
+      "code": "MISSING_REQUIRED_PARAMETER",
       "detail": "detail3",
       "field": "field1"
     }

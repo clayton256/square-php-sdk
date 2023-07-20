@@ -12,7 +12,7 @@ V1Settlement
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `id` | `?string` | Optional | The settlement's unique identifier. | getId(): ?string | setId(?string id): void |
-| `status` | [`?string (V1SettlementStatus)`](../../doc/models/v1-settlement-status.md) | Optional | - | getStatus(): ?string | setStatus(?string status): void |
+| `status` | [`?string(V1SettlementStatus)`](../../doc/models/v1-settlement-status.md) | Optional | - | getStatus(): ?string | setStatus(?string status): void |
 | `totalMoney` | [`?V1Money`](../../doc/models/v1-money.md) | Optional | - | getTotalMoney(): ?V1Money | setTotalMoney(?V1Money totalMoney): void |
 | `initiatedAt` | `?string` | Optional | The time when the settlement was submitted for deposit or withdrawal, in ISO 8601 format. | getInitiatedAt(): ?string | setInitiatedAt(?string initiatedAt): void |
 | `bankAccountId` | `?string` | Optional | The Square-issued unique identifier for the bank account associated with the settlement. | getBankAccountId(): ?string | setBankAccountId(?string bankAccountId): void |
@@ -26,7 +26,7 @@ V1Settlement
   "status": "FAILED",
   "total_money": {
     "amount": 250,
-    "currency_code": "USS"
+    "currency_code": "KZT"
   },
   "initiated_at": "initiated_at2",
   "bank_account_id": "bank_account_id0"
